@@ -1,0 +1,30 @@
+{
+  "name": "drwgry",
+  "version": "1.0.0",
+  "description": "my personal site",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app"
+  },
+  "dependencies":{
+    "express":"*",
+    "mongoose":"*",
+    "bcryptjs":"*",
+    "cors":"*",
+    "jsonwebtoken":"*",
+    "body-parser":"*",
+    "passport":"*",
+    "passport-jwt":"*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/drewgray/drwgry.git"
+  },
+  "author": "Drew Gray",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/drewgray/drwgry/issues"
+  },
+  "homepage": "https://github.com/drewgray/drwgry#readme"
+}
