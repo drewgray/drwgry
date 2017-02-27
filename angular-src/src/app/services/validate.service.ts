@@ -18,4 +18,10 @@ export class ValidateService {
     return re.test(email);
   }
 
+  storeUserData(token, user){
+    //JWT looks for 'id_token' when validating
+    localStorage.setItem('id_token', token);
+    localStorage.setItem('user', JSON.stringify(user));
+  }
+
 }

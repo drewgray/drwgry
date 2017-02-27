@@ -14,8 +14,9 @@
                 <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a [routerLink]="['/']">Home</a></li>
             </ul>-->
             <ul class="nav navbar-nav navbar-right">
-                <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a [routerLink]="['/login']">Login</a></li>
+                <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a [routerLink]="['/login']">Log in</a></li>
                 <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a [routerLink]="['/register']">Register</a></li>
+                <li><a (click)="onLogoutCLick()" href="#">Log out</a></li>
             </ul>
         </div>
         <!--/.nav-collapse -->
