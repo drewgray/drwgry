@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {ValidateService} from '../../services/validate.service';
 import {AuthService} from '../../services/auth.service';
 import {FlashMessagesService} from 'angular2-flash-messages';
 import {Router} from '@angular/router';
+import {User} from '../../interfaces/user.interface';
 
 @Component({
   selector: 'app-register',
@@ -12,28 +12,38 @@ import {Router} from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
 
-  name: String;
-  username: String;
-  email: String;
-  password: String;
+  // name: String;
+  // username: String;
+  // email: String;
+  // password: String;
+  public user: User;
 
-  usernameValid: Boolean = false;
+  usernameValid: Boolean = true;
+  emailValid: Boolean = true;
 
   constructor(
     private validateService: ValidateService, 
     private authService: AuthService, 
     private flashMessage:FlashMessagesService,
-    private router: Router) { }
+    private router: Router) { 
+    }
 
   ngOnInit() {
+    this.user = {
+      name: '',
+      username: '',
+      email: '',
+      password: ''
+    }
   }
 
-  onRegisterSubmit(){
+
+  onRegisterSubmit(model: User, isValid: boolean){
     const user = {
-      name: this.name,
-      email: this.email,
-      username: this.username,
-      password: this.password
+      name: model.name,
+      email: model.email,
+      username: model.username,
+      password: model.password
     }
 
     //Required Fields
@@ -55,6 +65,7 @@ export class RegisterComponent implements OnInit {
   }
 
   // Register user
+  if (isValid){
   this.authService.registerUser(user).subscribe(data => {
     if(data.success){
       this.flashMessage.show('You are now registered and may log in', {cssClass: 'alert-success', timeout: 3000});
@@ -64,12 +75,26 @@ export class RegisterComponent implements OnInit {
       this.router.navigate(['/register']);
     }
   });
+  }
 
  }
 
- onFocusoutUsername(){
+ onFocusoutEmail(model: User, isValid: boolean){
   const user = {
-      username: this.username
+      email: model.email
+    }
+
+  if(this.validateService.validateEmail(user.email)){
+    this.emailValid = true;
+  } else{
+    this.emailValid = false;
+  }
+
+  }
+
+ onFocusoutUsername(model: User, isValid: boolean){
+  const user = {
+      username: model.username
     }
 
   this.validateService.validateUsername(user).subscribe(data => {
@@ -77,7 +102,7 @@ export class RegisterComponent implements OnInit {
     if(data.success){
       this.usernameValid = true;
     } else {
-      this.flashMessage.show('User name has already been taken', {cssClass: 'alert-danger', timeout: 3000});
+      // this.flashMessage.show('User name has already been taken', {cssClass: 'alert-danger', timeout: 3000});
       this.usernameValid = false;
     }
   },    
