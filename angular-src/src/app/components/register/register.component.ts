@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {ValidateService} from '../../services/validate.service';
 import {AuthService} from '../../services/auth.service';
 import {FlashMessagesService} from 'angular2-flash-messages';
@@ -15,6 +16,8 @@ export class RegisterComponent implements OnInit {
   username: String;
   email: String;
   password: String;
+
+  usernameValid: Boolean = false;
 
   constructor(
     private validateService: ValidateService, 
@@ -45,6 +48,12 @@ export class RegisterComponent implements OnInit {
       return false;
   }
 
+  // Validate open username
+  if(!this.validateService.validateUsername(user.username)){
+      this.flashMessage.show('User name has already been taken', {cssClass: 'alert-danger', timeout: 3000});
+      return false;
+  }
+
   // Register user
   this.authService.registerUser(user).subscribe(data => {
     if(data.success){
@@ -57,5 +66,25 @@ export class RegisterComponent implements OnInit {
   });
 
  }
+
+ onFocusoutUsername(){
+  const user = {
+      username: this.username
+    }
+
+  this.validateService.validateUsername(user).subscribe(data => {
+    //console.log(data);
+    if(data.success){
+      this.usernameValid = true;
+    } else {
+      this.flashMessage.show('User name has already been taken', {cssClass: 'alert-danger', timeout: 3000});
+      this.usernameValid = false;
+    }
+  },    
+  err => {
+        console.log(err);
+        this.usernameValid = false;
+      });
+  }
 
 }
