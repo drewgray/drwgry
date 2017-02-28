@@ -92,9 +92,10 @@ router.post('/resetpw', (req, res, next) => {
     User.getUserByUsername(req.body.username, (err, user) => {
         if (err) throw err;
         if (user) {
-            user.password = 'abc123'; //generate random values
+            user.password = randID(10); //generate random values
             user.tmpPW = true;
             tmpPW = user.password;
+            console.log(user.password);
 
             User.addUser(user, (err, user) => {
                 if (err) {
@@ -168,5 +169,21 @@ router.post('/getemail', (req, res, next) => {
         }
     });
 });
+
+
+function randID(length) {
+    const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
+
+    if (!length) {
+        length = Math.floor(Math.random() * chars.length);
+    }
+
+    var str = '';
+    for (var i = 0; i < length; i++) {
+        str += chars[Math.floor(Math.random() * chars.length)];
+    }
+    return str;
+}
+
 
 module.exports = router;
