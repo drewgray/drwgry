@@ -3,6 +3,7 @@ const router = express.Router();
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const config = require('../config/database');
+const mailconf = require('../config/mail');
 const nodemailer = require('nodemailer');
 
 const User = require('../models/user');
@@ -87,40 +88,63 @@ router.post('/exists', (req, res, next) => {
 
 // reset account
 router.post('/resetpw', (req, res, next) => {
+
+    var email = '';
+    var username = '';
+    var tmpPW = '';
+
     User.getUserByUsername(req.body.username, (err, user) => {
         if (err) throw err;
         if (user) {
-            //Setup nodemailer
-            const transporter = nodemailer.createTransport({
-                service: 'Gmail',
-                auth: {
-                    user: 'david@amptimal.com',
-                    pass: 'Blpdct@u2'
-                }
-            });
+            upUser = user;
+            console.log(user);
+            user.password = 'abc123'; //generate random values
+            user.tmpPW = true;
+            email = user.email;
+            username = user.username;
+            tmpPW = user.password;
 
-            const mailOptions = {
-                from: 'drwgry <help@drwgry.com>',
-                to: req.body.email,
-                subject: 'Temporary Password',
-                text: 'Temp password: ' + req.body.temppw,
-                html: "<p>Temp Password: </p>" + req.body.temppw
-            };
+            console.log(user);
 
-            transporter.sendMail(mailOptions, function(error, info) {
-                response = info.response;
-                if (error) {
-                    console.log(error);
+            User.addUser(upUser, (err, user) => {
+                if (err) {
+                    console.log(err);
+                    res.json({ success: false, msg: 'Failed' });
                 } else {
-                    console.log('Message send: ' + info.response);
+                    console.log(user);
+                    res.json({ success: true, msg: 'password updated' });
                 }
             });
-
-            res.json({ success: true, msg: "SUCCESS" });
         } else {
             res.json({ success: false, msg: "FAIL" });
         }
     });
+
+    //Setup nodemailer
+    // const transporter = nodemailer.createTransport({
+    //     service: 'Gmail',
+    //     auth: {
+    //         user: mailconf.mailuser,
+    //         pass: mailconf.mailpass
+    //     }
+    // });
+    // const mailOptions = {
+    //     from: mailconf.mailuser,
+    //     to: email,
+    //     subject: 'Temporary Password',
+    //     text: "Temp password: for " + username + ":" + tmpPW,
+    //     html: "<p>Temp Password for " + username + ": </p>" + tmpPW
+    // };
+
+    // transporter.sendMail(mailOptions, function(error, info) {
+    //     if (error) {
+    //         console.log(error);
+    //         res.json({ success: false, msg: "FAIL" });
+    //     } else {
+    //         console.log('Message send: ' + info.response);
+    //         res.json({ success: true, msg: "SUCCESS" });
+    //     }
+    // });
 });
 
 // Username taken

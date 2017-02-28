@@ -18,6 +18,10 @@ const UserSchema = mongoose.Schema({
     password: {
         type: String,
         required: true
+    },
+    tmpPW: {
+        type: Boolean,
+        required: false
     }
 });
 
@@ -46,6 +50,15 @@ module.exports.addUser = function(newUser, callback) {
         });
     });
 }
+
+// module.exports.updateUserPW = function(user, callback) {
+//     const tmpPW = "abc123";
+//     User.findAndModify({
+//             _id: user._id
+//         }, , { $set: { password: "abc123" } }, {}, //options
+//         callback
+//     );
+// }
 
 module.exports.comparePassword = function(candidatePassword, hash, callback) {
     bcrypt.compare(candidatePassword, hash, (err, isMatch) => {
