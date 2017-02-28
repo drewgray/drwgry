@@ -9,4 +9,8 @@
         <input type="password" [(ngModel)]="password" name="password" class="form-control">
     </div>
     <input type="submit" class="btn btn-primary" value="Submit">
+    <br><br>
+    <small [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+        <a [routerLink]="['/forgotpw']">Forgot account</a>
+    </small>
 </form>

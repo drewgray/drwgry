@@ -5,6 +5,7 @@ const cors = require('cors');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const config = require('./config/database');
+const nodemailer = require('nodemailer');
 
 
 // Connect to DB
@@ -37,6 +38,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //Body Parser Middleware
 app.use(bodyParser.json());
+
+//Setup nodemailer
+const transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+        user: 'drewgray@gmail.com',
+        pass: 'Blpdct@u2'
+    }
+});
 
 //Passport Middleware
 app.use(passport.initialize());

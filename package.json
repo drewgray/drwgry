@@ -17,6 +17,7 @@
     "jsonwebtoken": "*",
     "karma": "*",
     "mongoose": "*",
+    "nodemailer": "^3.1.4",
     "passport": "*",
     "passport-jwt": "*"
   },

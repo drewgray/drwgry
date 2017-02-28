@@ -27,4 +27,18 @@ export class ValidateService {
       .map(res => res.json());
   }
 
+    resetAccount(user){
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    return this.http.post('http://localhost:3000/users/resetpw', user, {headers: headers})
+      .map(res => res.json());
+  }
+
+    getUseremail(user){
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    return this.http.post('http://localhost:3000/users/getemail', user, {headers: headers})
+      .map(res => res.json());
+  }
+
 }

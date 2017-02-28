@@ -3,6 +3,7 @@ const router = express.Router();
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const config = require('../config/database');
+const nodemailer = require('nodemailer');
 
 const User = require('../models/user');
 
@@ -80,6 +81,56 @@ router.post('/exists', (req, res, next) => {
             res.json({ success: false, msg: 'User name already taken' });
         } else {
             res.json({ success: true, msg: 'User name available' });
+        }
+    });
+});
+
+// reset account
+router.post('/resetpw', (req, res, next) => {
+    User.getUserByUsername(req.body.username, (err, user) => {
+        if (err) throw err;
+        if (user) {
+            //Setup nodemailer
+            const transporter = nodemailer.createTransport({
+                service: 'Gmail',
+                auth: {
+                    user: 'david@amptimal.com',
+                    pass: 'Blpdct@u2'
+                }
+            });
+
+            const mailOptions = {
+                from: 'drwgry <help@drwgry.com>',
+                to: req.body.email,
+                subject: 'Temporary Password',
+                text: 'Temp password: ' + req.body.temppw,
+                html: "<p>Temp Password: </p>" + req.body.temppw
+            };
+
+            transporter.sendMail(mailOptions, function(error, info) {
+                response = info.response;
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log('Message send: ' + info.response);
+                }
+            });
+
+            res.json({ success: true, msg: "SUCCESS" });
+        } else {
+            res.json({ success: false, msg: "FAIL" });
+        }
+    });
+});
+
+// Username taken
+router.post('/getemail', (req, res, next) => {
+    User.getUserByUsername(req.body.username, (err, user) => {
+        if (err) throw err;
+        if (user) {
+            res.json({ success: true, email: user.email });
+        } else {
+            res.json({ success: false, email: user.email });
         }
     });
 });
