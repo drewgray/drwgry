@@ -89,62 +89,49 @@ router.post('/exists', (req, res, next) => {
 // reset account
 router.post('/resetpw', (req, res, next) => {
 
-    var email = '';
-    var username = '';
-    var tmpPW = '';
-
     User.getUserByUsername(req.body.username, (err, user) => {
         if (err) throw err;
         if (user) {
-            upUser = user;
-            console.log(user);
             user.password = 'abc123'; //generate random values
             user.tmpPW = true;
-            email = user.email;
-            username = user.username;
             tmpPW = user.password;
 
-            console.log(user);
-
-            User.addUser(upUser, (err, user) => {
+            User.addUser(user, (err, user) => {
                 if (err) {
-                    console.log(err);
                     res.json({ success: false, msg: 'Failed' });
                 } else {
-                    console.log(user);
-                    res.json({ success: true, msg: 'password updated' });
+
+                    //Setup nodemailer
+                    const transporter = nodemailer.createTransport({
+                        service: 'Gmail',
+                        auth: {
+                            user: mailconf.mailuser,
+                            pass: mailconf.mailpass
+                        }
+                    });
+                    const mailOptions = {
+                        from: mailconf.mailuser,
+                        to: user.email,
+                        subject: 'Temporary Password',
+                        text: "Temp password: for " + user.username + ":" + tmpPW,
+                        html: "<p>Temp Password for " + user.username + ": </p>" + tmpPW
+                    };
+
+                    transporter.sendMail(mailOptions, function(error, info) {
+                        if (error) {
+                            console.log(error);
+                            res.json({ success: false, msg: "FAIL" });
+                        } else {
+                            console.log('Message send: ' + info.response);
+                            res.json({ success: true, msg: "SUCCESS" });
+                        }
+                    });
                 }
             });
         } else {
             res.json({ success: false, msg: "FAIL" });
         }
     });
-
-    //Setup nodemailer
-    // const transporter = nodemailer.createTransport({
-    //     service: 'Gmail',
-    //     auth: {
-    //         user: mailconf.mailuser,
-    //         pass: mailconf.mailpass
-    //     }
-    // });
-    // const mailOptions = {
-    //     from: mailconf.mailuser,
-    //     to: email,
-    //     subject: 'Temporary Password',
-    //     text: "Temp password: for " + username + ":" + tmpPW,
-    //     html: "<p>Temp Password for " + username + ": </p>" + tmpPW
-    // };
-
-    // transporter.sendMail(mailOptions, function(error, info) {
-    //     if (error) {
-    //         console.log(error);
-    //         res.json({ success: false, msg: "FAIL" });
-    //     } else {
-    //         console.log('Message send: ' + info.response);
-    //         res.json({ success: true, msg: "SUCCESS" });
-    //     }
-    // });
 });
 
 // Username taken
