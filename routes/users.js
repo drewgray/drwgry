@@ -134,7 +134,30 @@ router.post('/resetpw', (req, res, next) => {
     });
 });
 
-// Username taken
+//update password
+router.post('/updatepw', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+
+    User.getUserByUsername(req.body.username, (err, user) => {
+        if (err) throw err;
+        if (user) {
+            user.password = req.newPW;
+            user.tmpPW = false;
+
+            User.addUser(user, (err, user) => {
+                if (err) {
+                    res.json({ success: false, msg: 'Failed' });
+                } else {
+                    res.json({ success: true, msg: 'Success' });
+                }
+            });
+        } else {
+            res.json({ success: false, msg: "FAIL" });
+        }
+    });
+});
+
+
+// Get email
 router.post('/getemail', (req, res, next) => {
     User.getUserByUsername(req.body.username, (err, user) => {
         if (err) throw err;

@@ -4,4 +4,8 @@
         <li class="list-group-item"> Username: {{user.username}}</li>
         <li class="list-group-item"> Email: {{user.email}}</li>
     </ul>
+    <br><br>
+    <small [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+        <a [routerLink]="['/updatepw']">update password</a>
+    </small>
 </div>

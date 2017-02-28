@@ -12,11 +12,13 @@ import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { UpdatePWComponent } from './components/update-pw/update-pw.component';
 
 import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
 import {FlashMessagesModule} from 'angular2-flash-messages';
 import {AuthGuard} from './guards/auth.guard';
+
 
 
 const appRoutes: Routes = [
@@ -25,7 +27,8 @@ const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
   {path: 'profile', component: ProfileComponent, canActivate:[AuthGuard]},
-  {path: 'forgotpw', component: ForgotPasswordComponent}  
+  {path: 'forgotpw', component: ForgotPasswordComponent},
+  {path: 'updatepw', component: UpdatePWComponent, canActivate:[AuthGuard]}  
 ]
 
 @NgModule({
@@ -37,7 +40,8 @@ const appRoutes: Routes = [
     HomeComponent,
     DashboardComponent,
     ProfileComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    UpdatePWComponent
   ],
   imports: [
     BrowserModule,
