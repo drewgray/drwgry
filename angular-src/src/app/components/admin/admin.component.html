@@ -26,7 +26,7 @@
                     <th>name</th>
                     <th>email</th>
                     <th>role</th>
-                    <th>promote</th>
+                    <th>auth</th>
                     <th>delete</th>
                 </tr>
             </thead>
@@ -36,8 +36,11 @@
                     <td>{{user.name}}</td>
                     <td>{{user.email}}</td>
                     <td>{{user.role}}</td>
-                    <td><a class="btn btn-warning btn-xs" [routerLink]="['/admin']">Promote</a></td>
-                    <td><a class="btn btn-danger btn-xs" [routerLink]="['/admin']">DELETE</a></td>
+                    <td>
+                        <a (click)="onclickPromote(i)" class="btn btn-primary btn-xs" [routerLink]="['/admin']">+</a>
+                        <a (click)="onclickDemote(i)" class="btn btn-warning btn-xs" [routerLink]="['/admin']">-</a>
+                    </td>
+                    <td><a (click)="onclickDelete(i)" class="btn btn-danger btn-xs" [routerLink]="['/admin']">DEL</a></td>
                 </tr>
             </tbody>
         </table>

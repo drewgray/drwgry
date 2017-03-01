@@ -102,7 +102,6 @@ router.get('/getall', passport.authenticate('jwt', { session: false }), (req, re
                 users.push(u);
             });
 
-            console.log(users);
             res.json({
                 success: true,
                 users: users
