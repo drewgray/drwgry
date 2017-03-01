@@ -49,6 +49,10 @@ router.post('/authenticate', (req, res, next) => {
             return res.json({ success: false, msg: 'User not found' });
         }
 
+        if (!user.role) {
+            User.updateRole(user, 'user', (err) => { if (err) throw err; });
+        }
+
         User.comparePassword(password, user.password, (ess, isMatch) => {
             if (err) throw err;
             if (isMatch) {
@@ -65,7 +69,8 @@ router.post('/authenticate', (req, res, next) => {
                         name: user.name,
                         username: user.username,
                         email: user.email,
-                        tmpPW: user.tmpPW
+                        tmpPW: user.tmpPW,
+                        role: user.role
                     }
                 });
             } else {
@@ -78,6 +83,34 @@ router.post('/authenticate', (req, res, next) => {
 // Profile
 router.get('/profile', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     res.json({ user: req.user });
+});
+
+// get all users
+router.get('/getall', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    User.getAllUsers('', (err, ausers) => {
+        if (err) throw err;
+        if (ausers) {
+            var users = [];
+            ausers.forEach(function(user) {
+                var u = {
+                    id: user._id,
+                    name: user.name,
+                    username: user.username,
+                    email: user.email,
+                    role: user.role
+                };
+                users.push(u);
+            });
+
+            console.log(users);
+            res.json({
+                success: true,
+                users: users
+            });
+        } else {
+            res.json({ success: false, users: '' });
+        }
+    });
 });
 
 // Username taken

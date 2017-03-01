@@ -25,7 +25,8 @@ const UserSchema = mongoose.Schema({
     },
     role: {
         type: String,
-        required: false
+        required: false,
+        enum: ['user', 'temp', 'admin', 'guest', 'blocked']
     },
     creationDate: {
         type: Date,
@@ -34,7 +35,15 @@ const UserSchema = mongoose.Schema({
     lastLogin: {
         type: Date,
         required: false
-    }
+    },
+    toDos: [{
+        name: String,
+        toDo_id: {
+            type: mongoose.Schema.Types.ObjectId,
+            index: true
+        },
+        done: Boolean
+    }]
 });
 
 const User = module.exports = mongoose.model('User', UserSchema);
@@ -46,6 +55,10 @@ module.exports.getUserById = function(id, callback) {
 module.exports.getUserByUsername = function(username, callback) {
     const query = { username: username }
     User.findOne(query, callback);
+}
+
+module.exports.getAllUsers = function(data, callback) {
+    User.find(callback);
 }
 
 module.exports.getUserByEmail = function(email, callback) {
@@ -65,6 +78,11 @@ module.exports.addUser = function(newUser, callback) {
 
 module.exports.updateLastLogin = function(user, callback) {
     user.lastLogin = Date.now();
+    user.save(callback);
+}
+
+module.exports.updateRole = function(user, role, callback) {
+    user.role = role;
     user.save(callback);
 }
 

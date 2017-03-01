@@ -19,12 +19,28 @@
             commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit.</p>
     </div>
     <div class="tab-pane fade" id="profile">
-        <br>
-        <ul>
-            <li *ngFor="let user of users; let i=index">
-                {{user.username}}
-            </li>
-        </ul>
+        <table class="table table-striped table-hover ">
+            <thead>
+                <tr>
+                    <th>username</th>
+                    <th>name</th>
+                    <th>email</th>
+                    <th>role</th>
+                    <th>promote</th>
+                    <th>delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users; let i=index">
+                    <td>{{user.username}}</td>
+                    <td>{{user.name}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.role}}</td>
+                    <td><a class="btn btn-warning btn-xs" [routerLink]="['/admin']">Promote</a></td>
+                    <td><a class="btn btn-danger btn-xs" [routerLink]="['/admin']">DELETE</a></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
     <div class="tab-pane fade" id="dropdown1">
         <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia

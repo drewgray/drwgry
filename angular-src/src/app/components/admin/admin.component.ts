@@ -15,8 +15,8 @@ export class AdminComponent implements OnInit {
 
   ngOnInit() {
     this.authService.getAllUsers().subscribe(allusers => {
-     this.users = allusers.users;
       console.log(allusers);
+     this.users = allusers.users;
     },
     err => {
       console.log(err);
