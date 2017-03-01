@@ -15,7 +15,7 @@ router.post('/register', (req, res, next) => {
         email: req.body.email,
         username: req.body.username,
         password: req.body.password,
-        role: 'user',
+        role: 'temp',
         creationDate: Date.now(),
         lastLogin: Date.now(),
         tmpPW: false
@@ -52,6 +52,7 @@ router.post('/authenticate', (req, res, next) => {
         User.comparePassword(password, user.password, (ess, isMatch) => {
             if (err) throw err;
             if (isMatch) {
+                User.updateLastLogin(user, (err) => { if (err) throw err; });
                 const token = jwt.sign(user, config.secret, {
                     expiresIn: 604800 //1 week in seconds
                 });

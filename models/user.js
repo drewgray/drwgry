@@ -63,6 +63,11 @@ module.exports.addUser = function(newUser, callback) {
     });
 }
 
+module.exports.updateLastLogin = function(user, callback) {
+    user.lastLogin = Date.now();
+    user.save(callback);
+}
+
 module.exports.comparePassword = function(candidatePassword, hash, callback) {
     bcrypt.compare(candidatePassword, hash, (err, isMatch) => {
         if (err) throw err;
