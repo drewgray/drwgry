@@ -34,6 +34,19 @@ export class AuthService {
       .map(res => res.json());
   }
 
+  getAllUsers(){
+    let headers = new Headers();
+    this.loadToken();
+    this.loadUser();
+    if (this.user && this.user.role == 'admin'){
+    headers.append('Authorization', this.authToken);
+    headers.append('Content-Type','application/json');
+    return this.http.get('http://localhost:3000/users/getall', {headers: headers})
+      .map(res => res.json());
+    } 
+    return JSON.parse("false");
+  }
+
   storeUserData(token, user){
     //JWT looks for 'id_token' when validating
     localStorage.setItem('id_token', token);
@@ -54,6 +67,18 @@ export class AuthService {
 
   loggedIn(){
     return tokenNotExpired();
+  }
+
+  isAdmin(){
+    this.loadUser();
+    if (this.user){
+    if (this.user.role === 'admin') {
+      return true;
+    } else{
+      return false;
+    }
+  }
+  return false;
   }
 
   logout(){

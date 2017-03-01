@@ -13,12 +13,15 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { UpdatePWComponent } from './components/update-pw/update-pw.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
 import {FlashMessagesModule} from 'angular2-flash-messages';
 import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 import {AuthGuard} from './guards/auth.guard';
+import {AdminGuard} from './guards/admin.guard';
+
 
 
 
@@ -29,7 +32,8 @@ const appRoutes: Routes = [
   {path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
   {path: 'profile', component: ProfileComponent, canActivate:[AuthGuard]},
   {path: 'forgotpw', component: ForgotPasswordComponent},
-  {path: 'updatepw', component: UpdatePWComponent, canActivate:[AuthGuard]}  
+  {path: 'updatepw', component: UpdatePWComponent, canActivate:[AuthGuard]}, 
+  {path: 'admin', component: AdminComponent, canActivate:[AuthGuard, AdminGuard]}  
 ]
 
 @NgModule({
@@ -42,7 +46,8 @@ const appRoutes: Routes = [
     DashboardComponent,
     ProfileComponent,
     ForgotPasswordComponent,
-    UpdatePWComponent
+    UpdatePWComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +57,7 @@ const appRoutes: Routes = [
     FlashMessagesModule,
     Ng2GoogleChartsModule
   ],
-  providers: [ValidateService, AuthService, AuthGuard],
+  providers: [ValidateService, AuthService, AuthGuard, AdminGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

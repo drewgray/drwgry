@@ -98,7 +98,7 @@ export class RegisterComponent implements OnInit {
     }
 
   this.validateService.validateUsername(user).subscribe(data => {
-    //console.log(data);
+    console.log(data);
     if(data.success){
       this.usernameValid = true;
     } else {
