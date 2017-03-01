@@ -17,6 +17,7 @@ import { UpdatePWComponent } from './components/update-pw/update-pw.component';
 import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
 import {FlashMessagesModule} from 'angular2-flash-messages';
+import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 import {AuthGuard} from './guards/auth.guard';
 
 
@@ -48,7 +49,8 @@ const appRoutes: Routes = [
     FormsModule,
     HttpModule,
     RouterModule.forRoot(appRoutes),
-    FlashMessagesModule
+    FlashMessagesModule,
+    Ng2GoogleChartsModule
   ],
   providers: [ValidateService, AuthService, AuthGuard],
   bootstrap: [AppComponent]
