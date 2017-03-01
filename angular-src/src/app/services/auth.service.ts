@@ -47,6 +47,11 @@ export class AuthService {
     this.authToken = token;
   }
 
+  loadUser(){
+    const locUser = localStorage.getItem('user');
+    this.user = JSON.parse(locUser);
+  }
+
   loggedIn(){
     return tokenNotExpired();
   }
@@ -55,6 +60,24 @@ export class AuthService {
     this.authToken = null;
     this.user = null;
     localStorage.clear();
+  }
+
+  resetAccount(user){
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    return this.http.post('http://localhost:3000/users/resetpw', user, {headers: headers})
+      .map(res => res.json());
+  }
+
+  updatePW(user){
+    let headers = new Headers();
+    this.loadUser();
+    console.log(this.user);
+    user.username = this.user.username;
+    console.log(user);
+    headers.append('Content-Type','application/json');
+    return this.http.post('http://localhost:3000/users/updatepw', user, {headers: headers})
+      .map(res => res.json());
   }
 
 }

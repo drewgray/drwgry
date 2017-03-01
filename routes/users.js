@@ -88,7 +88,6 @@ router.post('/exists', (req, res, next) => {
 
 // reset account
 router.post('/resetpw', (req, res, next) => {
-
     User.getUserByUsername(req.body.username, (err, user) => {
         if (err) throw err;
         if (user) {
@@ -136,23 +135,31 @@ router.post('/resetpw', (req, res, next) => {
 });
 
 //update password
-router.post('/updatepw', passport.authenticate('jwt', { session: false }), (req, res, next) => {
-
+router.post('/updatepw', (req, res, next) => {
+    console.log(req.body);
     User.getUserByUsername(req.body.username, (err, user) => {
         if (err) throw err;
         if (user) {
-            user.password = req.newPW;
-            user.tmpPW = false;
+            User.comparePassword(req.body.currentPW, user.password, (ess, isMatch) => {
+                if (err) throw err;
+                if (isMatch) {
+                    user.password = req.body.newPW;
+                    user.tmpPW = false;
 
-            User.addUser(user, (err, user) => {
-                if (err) {
-                    res.json({ success: false, msg: 'Failed' });
+                    User.addUser(user, (err, user) => {
+                        if (user) {
+                            res.json({ success: true, msg: 'Password updated' });
+                        } else {
+                            res.json({ success: false, msg: 'Error' });
+                        }
+                    });
                 } else {
-                    res.json({ success: true, msg: 'Success' });
+                    return res.json({ success: false, msg: 'Incorrect password' });
                 }
             });
+
         } else {
-            res.json({ success: false, msg: "FAIL" });
+            res.json({ success: false, msg: 'Error' });
         }
     });
 });

@@ -31,10 +31,10 @@ export class ForgotPasswordComponent implements OnInit {
 
     this.validateService.validateUsername(user).subscribe(data => {
     if(!data.success){
-          this.validateService.getUseremail(user).subscribe(data => {
+          this.validateService.validateEmailexists(user).subscribe(data => {
             if(data.success){
               user.email = data.email;
-              this.validateService.resetAccount(user).subscribe(data => {
+              this.authService.resetAccount(user).subscribe(data => {
                   if(data.success){
                     console.log(data.msg);
                     this.flashMessage.show('Password reset and emailed', {cssClass: 'alert-success', timeout: 3000});
