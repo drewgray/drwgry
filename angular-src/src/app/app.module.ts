@@ -27,6 +27,7 @@ import {BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 
 import {AuthGuard} from './guards/auth.guard';
 import {AdminGuard} from './guards/admin.guard';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 
@@ -60,7 +61,8 @@ const appRoutes: Routes = [
     AdminComponent,
     ProjectsComponent,
     ResumeComponent,
-    CarsComponent
+    CarsComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
