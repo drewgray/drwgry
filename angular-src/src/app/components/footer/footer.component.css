@@ -1,0 +1,14 @@
+img {
+    float: left;
+    margin-left: 0;
+    margin-right: 1em;
+    padding: 0;
+    width: 3em;
+    min-width: 25px;
+    height: auto;
+    opacity: 0.7
+}
+
+.row {
+    padding-left: 4em;
+}

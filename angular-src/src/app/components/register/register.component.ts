@@ -33,7 +33,8 @@ export class RegisterComponent implements OnInit {
       name: '',
       username: '',
       email: '',
-      password: ''
+      password: '',
+      role: ''
     }
   }
 
@@ -43,7 +44,8 @@ export class RegisterComponent implements OnInit {
       name: model.name,
       email: model.email,
       username: model.username,
-      password: model.password
+      password: model.password,
+      role: 'temp'
     }
 
     //Required Fields
