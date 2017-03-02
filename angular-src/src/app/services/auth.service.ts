@@ -97,12 +97,46 @@ export class AuthService {
   updatePW(user){
     let headers = new Headers();
     this.loadUser();
-    console.log(this.user);
     user.username = this.user.username;
-    console.log(user);
     headers.append('Content-Type','application/json');
     return this.http.post('http://localhost:3000/users/updatepw', user, {headers: headers})
       .map(res => res.json());
+  }
+
+  promoteUser(user){
+    this.loadToken();
+    if (this.isAdmin()){
+      let headers = new Headers();
+      headers.append('Authorization', this.authToken);
+      headers.append('Content-Type','application/json');
+      return this.http.post('http://localhost:3000/users/promote', user, {headers: headers})
+        .map(res => res.json());
+    } 
+    return JSON.parse("false");
+  }
+
+  demoteUser(user){
+    this.loadToken();
+    if (this.isAdmin()){
+      let headers = new Headers();
+      headers.append('Authorization', this.authToken);
+      headers.append('Content-Type','application/json');
+      return this.http.post('http://localhost:3000/users/demote', user, {headers: headers})
+        .map(res => res.json());
+    } 
+    return JSON.parse("false");
+  }
+
+    deleteUser(user){
+    this.loadToken();
+    if (this.isAdmin()){
+      let headers = new Headers();
+      headers.append('Authorization', this.authToken);
+      headers.append('Content-Type','application/json');
+      return this.http.post('http://localhost:3000/users/delete', user, {headers: headers})
+        .map(res => res.json());
+    } 
+    return JSON.parse("false");
   }
 
 }

@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef} from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import {FlashMessagesService} from 'angular2-flash-messages';
+import { Overlay } from 'angular2-modal';
+import { Modal } from 'angular2-modal/plugins/bootstrap';
 
 @Component({
   selector: 'app-admin',
@@ -10,16 +12,21 @@ import {FlashMessagesService} from 'angular2-flash-messages';
 })
 export class AdminComponent implements OnInit {
 
-  users:Object;
+  users:any;
 
   constructor(
     private authService:AuthService, 
     private router:Router,
-    private flashMessage:FlashMessagesService) { }
+    private flashMessage:FlashMessagesService,
+    overlay: Overlay, 
+    vcRef: ViewContainerRef, 
+    public modal: Modal) 
+    {
+      overlay.defaultViewContainer = vcRef;
+     }
 
   ngOnInit() {
     this.authService.getAllUsers().subscribe(allusers => {
-      console.log(allusers);
      this.users = allusers.users;
     },
     err => {
@@ -29,15 +36,56 @@ export class AdminComponent implements OnInit {
   }
 
   onclickDelete(i){
-this.flashMessage.show(this.users[i].username + " has been deleted", {cssClass: 'alert-danger', timeout: 3000});
+    var uname = this.users[i].username;
+
+    this.modal.confirm()
+            .size('sm')
+            .title('Confirm Removal')
+            .body(`Are you sure you want to delete ` + uname + `?`)
+            .okBtn('DELETE')
+            .open()
+            .catch((err: any) => console.log('ERROR: ' + err))
+            .then((dialog: any) => { return dialog.result })
+            .then((result: any) => { this.confirmDelete(uname, i) })
+            .catch((err: any) =>  console.log('delete cancelled'));
+  }
+
+  confirmDelete(uname, i){
+    this.authService.deleteUser(this.users[i]).subscribe(res => {
+      if (res.success){
+        this.users.splice(i,1);
+        this.flashMessage.show(uname + " has been deleted", {cssClass: 'alert-danger', timeout: 3000});
+      }
+      },
+      err => {
+        console.log(err);
+        return false;
+      });
   }
 
   onclickPromote(i){
-this.flashMessage.show(this.users[i].username + " has been promoted to " + this.users[i].role, {cssClass: 'alert-success', timeout: 3000});
+    this.authService.promoteUser(this.users[i]).subscribe(res => {
+    if (res.success){
+      this.users[i] = res.user;
+      this.flashMessage.show(this.users[i].username + " has been promoted to " + this.users[i].role, {cssClass: 'alert-success', timeout: 3000});
+    }
+    },
+    err => {
+      console.log(err);
+      return false;
+    });
   }
 
   onclickDemote(i){
-this.flashMessage.show(this.users[i].username + " has been demoted to " + this.users[i].role, {cssClass: 'alert-success', timeout: 3000});
+      this.authService.demoteUser(this.users[i]).subscribe(res => {
+        if (res.success){
+        this.users[i] = res.user;
+        this.flashMessage.show(this.users[i].username + " has been demoted to " + this.users[i].role, {cssClass: 'alert-success', timeout: 3000});
+      }},
+      err => {
+        console.log(err);
+        return false;
+      });
   }
 
 }

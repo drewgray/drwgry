@@ -50,7 +50,7 @@ router.post('/authenticate', (req, res, next) => {
         }
 
         if (!user.role) {
-            User.updateRole(user, 'user', (err) => { if (err) throw err; });
+            User.updateRole(user, 'temp', (err) => { if (err) throw err; });
         }
 
         User.comparePassword(password, user.password, (ess, isMatch) => {
@@ -97,6 +97,7 @@ router.get('/getall', passport.authenticate('jwt', { session: false }), (req, re
                     name: user.name,
                     username: user.username,
                     email: user.email,
+                    tmpPW: user.tmpPW,
                     role: user.role
                 };
                 users.push(u);
@@ -174,7 +175,6 @@ router.post('/resetpw', (req, res, next) => {
 
 //update password
 router.post('/updatepw', (req, res, next) => {
-    console.log(req.body);
     User.getUserByUsername(req.body.username, (err, user) => {
         if (err) throw err;
         if (user) {
@@ -198,6 +198,76 @@ router.post('/updatepw', (req, res, next) => {
 
         } else {
             res.json({ success: false, msg: 'Error' });
+        }
+    });
+});
+
+
+//promote role to next highest
+router.post('/promote', (req, res, next) => {
+    User.getUserById(req.body.id, (err, user) => {
+        if (err) throw err;
+        if (user) {
+            if (user.role == 'temp') {
+                User.updateRole(user, 'user', (err) => { if (err) throw err; });
+            } else if (user.role == 'user') {
+                User.updateRole(user, 'admin', (err) => { if (err) throw err; });
+            }
+            res.json({
+                success: true,
+                user: {
+                    id: user._id,
+                    name: user.name,
+                    username: user.username,
+                    email: user.email,
+                    tmpPW: user.tmpPW,
+                    role: user.role
+                }
+            });
+        } else {
+            res.json({ success: false });
+        }
+    });
+});
+
+//promote role to next highest
+router.post('/delete', (req, res, next) => {
+    User.getUserById(req.body.id, (err, user) => {
+        if (err) throw err;
+        if (user) {
+            User.deleteUser(user._id, (err, result) => {
+                if (err) { console.log(err); }
+                res.json({ success: true });
+            });
+        } else {
+            res.json({ success: false });
+        }
+    });
+});
+
+//demote role to next lowest
+router.post('/demote', (req, res, next) => {
+    User.getUserById(req.body.id, (err, user) => {
+        if (err) throw err;
+        if (user) {
+            if (user.role == 'admin') {
+                User.updateRole(user, 'user', (err) => { if (err) throw err; });
+            } else if (user.role == 'user') {
+                User.updateRole(user, 'temp', (err) => { if (err) throw err; });
+            }
+            res.json({
+                success: true,
+                user: {
+                    id: user._id,
+                    name: user.name,
+                    username: user.username,
+                    email: user.email,
+                    tmpPW: user.tmpPW,
+                    role: user.role
+                }
+            });
+        } else {
+            res.json({ success: false });
         }
     });
 });

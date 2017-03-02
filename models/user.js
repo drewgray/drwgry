@@ -25,7 +25,7 @@ const UserSchema = mongoose.Schema({
     },
     role: {
         type: String,
-        required: false,
+        required: true,
         enum: ['user', 'temp', 'admin', 'guest', 'blocked']
     },
     creationDate: {
@@ -84,6 +84,10 @@ module.exports.updateLastLogin = function(user, callback) {
 module.exports.updateRole = function(user, role, callback) {
     user.role = role;
     user.save(callback);
+}
+
+module.exports.deleteUser = function(id, callback) {
+    User.remove({ _id: id }, callback);
 }
 
 module.exports.comparePassword = function(candidatePassword, hash, callback) {

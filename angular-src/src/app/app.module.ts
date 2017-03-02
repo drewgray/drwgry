@@ -19,6 +19,9 @@ import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
 import {FlashMessagesModule} from 'angular2-flash-messages';
 import { Ng2GoogleChartsModule } from 'ng2-google-charts';
+import { ModalModule } from 'angular2-modal';
+import {BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
+
 import {AuthGuard} from './guards/auth.guard';
 import {AdminGuard} from './guards/admin.guard';
 
@@ -55,7 +58,9 @@ const appRoutes: Routes = [
     HttpModule,
     RouterModule.forRoot(appRoutes),
     FlashMessagesModule,
-    Ng2GoogleChartsModule
+    Ng2GoogleChartsModule,
+    ModalModule.forRoot(),
+    BootstrapModalModule
   ],
   providers: [ValidateService, AuthService, AuthGuard, AdminGuard],
   bootstrap: [AppComponent]

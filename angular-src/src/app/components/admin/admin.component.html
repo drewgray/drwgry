@@ -40,7 +40,9 @@
                         <a (click)="onclickPromote(i)" class="btn btn-primary btn-xs" [routerLink]="['/admin']">+</a>
                         <a (click)="onclickDemote(i)" class="btn btn-warning btn-xs" [routerLink]="['/admin']">-</a>
                     </td>
-                    <td><a (click)="onclickDelete(i)" class="btn btn-danger btn-xs" [routerLink]="['/admin']">DEL</a></td>
+                    <td>
+                        <a (click)="onclickDelete(i)" class="btn btn-danger btn-xs" [routerLink]="['/admin']">DEL</a>
+                    </td>
                 </tr>
             </tbody>
         </table>
