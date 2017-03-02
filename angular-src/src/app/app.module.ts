@@ -14,6 +14,9 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { UpdatePWComponent } from './components/update-pw/update-pw.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { ProjectsComponent } from './components/projects/projects.component';
+import { ResumeComponent } from './components/resume/resume.component';
+import { CarsComponent } from './components/cars/cars.component';
 
 import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
@@ -28,6 +31,7 @@ import {AdminGuard} from './guards/admin.guard';
 
 
 
+
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'register', component: RegisterComponent},
@@ -36,7 +40,10 @@ const appRoutes: Routes = [
   {path: 'profile', component: ProfileComponent, canActivate:[AuthGuard]},
   {path: 'forgotpw', component: ForgotPasswordComponent},
   {path: 'updatepw', component: UpdatePWComponent, canActivate:[AuthGuard]}, 
-  {path: 'admin', component: AdminComponent, canActivate:[AuthGuard, AdminGuard]}  
+  {path: 'admin', component: AdminComponent, canActivate:[AuthGuard, AdminGuard]},  
+  {path: 'projects', component: ProjectsComponent},
+  {path: 'resume', component: ResumeComponent},
+  {path: 'cars', component: CarsComponent},
 ]
 
 @NgModule({
@@ -50,7 +57,10 @@ const appRoutes: Routes = [
     ProfileComponent,
     ForgotPasswordComponent,
     UpdatePWComponent,
-    AdminComponent
+    AdminComponent,
+    ProjectsComponent,
+    ResumeComponent,
+    CarsComponent
   ],
   imports: [
     BrowserModule,

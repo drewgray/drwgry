@@ -2,21 +2,28 @@
     <h1> Random text about the site! </h1>
     <p class="lead">This is the lead/top story...</p>
     <div>
-        <a class="btn btn-primary" [routerLink]="['/register']">Register</a> <a class="btn btn-default" [routerLink]="['/login']">Login</a>
+        <!--<a class="btn btn-primary" [routerLink]="['/register']">Register</a> -->
+        <!--<a class="btn btn-default" [routerLink]="['/login']">Login</a>-->
     </div>
 </div>
 
 <div class="row">
     <div class="col-md-4">
-        <h3>Projects</h3>
-        <p>Neat lil words about projects interested in...</p>
+        <a [routerLink]="['/projects']">
+            <h3>Projects</h3>
+            <p>Random stuff that I have been working on</p>
+        </a>
     </div>
     <div class="col-md-4">
-        <h3>Resume</h3>
-        <p>Work history words about stuffffs</p>
+        <a [routerLink]="['/resume']">
+            <h3>Resume</h3>
+            <p>Take a look at my history</p>
+        </a>
     </div>
     <div class="col-md-4">
-        <h3>Family</h3>
-        <p>words about family and friend stuff. MEOW</p>
+        <a [routerLink]="['/cars']">
+            <h3>Cars</h3>
+            <p>A view into my car addiction</p>
+        </a>
     </div>
 </div>

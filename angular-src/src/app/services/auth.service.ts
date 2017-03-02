@@ -105,7 +105,7 @@ export class AuthService {
 
   promoteUser(user){
     this.loadToken();
-    if (this.isAdmin()){
+    if (this.isAdmin() && this.user.username!= user.username){
       let headers = new Headers();
       headers.append('Authorization', this.authToken);
       headers.append('Content-Type','application/json');
@@ -117,7 +117,7 @@ export class AuthService {
 
   demoteUser(user){
     this.loadToken();
-    if (this.isAdmin()){
+    if (this.isAdmin() && this.user.username!= user.username){
       let headers = new Headers();
       headers.append('Authorization', this.authToken);
       headers.append('Content-Type','application/json');
@@ -129,7 +129,7 @@ export class AuthService {
 
     deleteUser(user){
     this.loadToken();
-    if (this.isAdmin()){
+    if (this.isAdmin() && this.user.username!= user.username){
       let headers = new Headers();
       headers.append('Authorization', this.authToken);
       headers.append('Content-Type','application/json');
