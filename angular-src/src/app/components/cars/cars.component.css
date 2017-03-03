@@ -6,3 +6,16 @@
 .tab-content {
     text-align: center;
 }
+
+.car {
+    width: 100%;
+    height: auto;
+}
+
+.tab-content {
+    margin-left: 15vw;
+    margin-right: 25vw;
+    float: center;
+    width: 50vw;
+    height: auto;
+}

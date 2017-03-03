@@ -24,6 +24,7 @@ import {FlashMessagesModule} from 'angular2-flash-messages';
 import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 import { ModalModule } from 'angular2-modal';
 import {BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
+import { CarouselModule } from 'ng2-bootstrap';
 
 import {AuthGuard} from './guards/auth.guard';
 import {AdminGuard} from './guards/admin.guard';
@@ -72,7 +73,8 @@ const appRoutes: Routes = [
     FlashMessagesModule,
     Ng2GoogleChartsModule,
     ModalModule.forRoot(),
-    BootstrapModalModule
+    BootstrapModalModule,
+    CarouselModule.forRoot()
   ],
   providers: [ValidateService, AuthService, AuthGuard, AdminGuard],
   bootstrap: [AppComponent]

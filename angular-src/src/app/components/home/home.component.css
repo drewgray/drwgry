@@ -5,3 +5,17 @@ h3 {
 p {
     text-align: center;
 }
+
+.jumbotron {
+    /*background-image: url(./assets/img/bg1.jpg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;*/
+}
+
+.background {
+    /*background-image: url(./assets/img/bg1.jpg);
+    background-size: cover;
+    background-blend-mode: lighten;
+    height: 100vh;*/
+}

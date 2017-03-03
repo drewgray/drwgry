@@ -1,7 +1,13 @@
+@import 'https://fonts.googleapis.com/css?family=Raleway';
 footer {
     max-height: 5vh
 }
 
 .container {
     min-height: 75vh;
+}
+
+html,
+body {
+    font-family: Raleway;
 }
