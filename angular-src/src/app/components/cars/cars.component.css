@@ -8,14 +8,16 @@
 }
 
 .car {
+    width: 60vw;
+    /*max-width: 600px;*/
+    height: auto;
+}
+
+.car img {
     width: 100%;
     height: auto;
 }
 
-.tab-content {
-    margin-left: 15vw;
-    margin-right: 25vw;
-    float: center;
-    width: 50vw;
-    height: auto;
+.mods {
+    text-align: center;
 }
