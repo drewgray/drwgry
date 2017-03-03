@@ -28,8 +28,8 @@ export class CarsComponent implements OnInit {
   nEvoque:number;
   oldImages:Car[];
   nOld:number;
-  interval: number = 1000;
-  
+  interval: number = 1500;
+
 
   constructor() {
  this.firstimg = true;

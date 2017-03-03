@@ -17,6 +17,8 @@ import { AdminComponent } from './components/admin/admin.component';
 import { ProjectsComponent } from './components/projects/projects.component';
 import { ResumeComponent } from './components/resume/resume.component';
 import { CarsComponent } from './components/cars/cars.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { BlogComponent } from './components/blog/blog.component';
 
 import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
@@ -28,7 +30,7 @@ import { CarouselModule } from 'ng2-bootstrap';
 
 import {AuthGuard} from './guards/auth.guard';
 import {AdminGuard} from './guards/admin.guard';
-import { FooterComponent } from './components/footer/footer.component';
+
 
 
 
@@ -46,6 +48,7 @@ const appRoutes: Routes = [
   {path: 'projects', component: ProjectsComponent},
   {path: 'resume', component: ResumeComponent},
   {path: 'cars', component: CarsComponent},
+  {path: 'blog', component: BlogComponent}
 ]
 
 @NgModule({
@@ -63,7 +66,8 @@ const appRoutes: Routes = [
     ProjectsComponent,
     ResumeComponent,
     CarsComponent,
-    FooterComponent
+    FooterComponent,
+    BlogComponent
   ],
   imports: [
     BrowserModule,

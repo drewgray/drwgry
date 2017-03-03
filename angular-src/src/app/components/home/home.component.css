@@ -6,16 +6,17 @@ p {
     text-align: center;
 }
 
-.jumbotron {
-    /*background-image: url(./assets/img/bg1.jpg);
-    background-repeat: no-repeat;
-    background-size: 100%;
-    background-position: center;*/
+.circle {
+    /*-moz-border-radius: 50%;
+    -webkit-border-radius: 50%;*/
+    border-radius: 10vw;
+    border: 3px solid #BADA55;
 }
 
-.background {
-    /*background-image: url(./assets/img/bg1.jpg);
-    background-size: cover;
-    background-blend-mode: lighten;
-    height: 100vh;*/
+a {
+    text-decoration: none;
+}
+
+.circle:hover {
+    background-color: lightgray;
 }
