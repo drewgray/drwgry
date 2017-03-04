@@ -34,8 +34,6 @@ import {AdminGuard} from './guards/admin.guard';
 
 
 
-
-
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'register', component: RegisterComponent},
