@@ -1,10 +1,10 @@
 <ul class="nav nav-tabs">
     <li class="active"><a href="#status" data-toggle="tab">Status</a></li>
-    <li><a href="#users" data-toggle="tab">Users</a></li>
-    <li href="#cars" data-toggle="tab"><a>Cars</a></li>
-    <li href="#projects" data-toggle="tab"><a>Projects</a></li>
-    <li href="#blog" data-toggle="tab"><a>Blog</a></li>
-    <li class="dropdown">
+    <li> <a href="#users" data-toggle="tab">Users</a></li>
+    <li> <a href="#cars" data-toggle="tab">Cars</a></li>
+    <li> <a href="#projects" data-toggle="tab">Projects</a></li>
+    <li> <a href="#blog" data-toggle="tab">Blog</a></li>
+    <!--<li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
       Dropdown <span class="caret"></span>
     </a>
@@ -13,11 +13,11 @@
             <li class="divider"></li>
             <li><a href="#dropdown2" data-toggle="tab">Another action</a></li>
         </ul>
-    </li>
+    </li>-->
 </ul>
 <div id="myTabContent" class="tab-content">
     <div class="tab-pane fade active in" id="status">
-        <p>Site status pane</p>
+        <p>Show site stats for all data</p>
     </div>
     <div class="tab-pane fade" id="users">
         <table class="table table-striped table-hover ">
@@ -42,7 +42,7 @@
                         <a (click)="onclickDemote(i)" class="btn btn-warning btn-xs" [routerLink]="['/admin']">-</a>
                     </td>
                     <td>
-                        <a (click)="onclickDelete(i)" class="btn btn-danger btn-xs" [routerLink]="['/admin']">DEL</a>
+                        <a (click)="onclickDeleteUser(i)" class="btn btn-danger btn-xs" [routerLink]="['/admin']">DEL</a>
                     </td>
                 </tr>
             </tbody>
@@ -95,32 +95,20 @@
             <thead>
                 <tr>
                     <th>name</th>
-                    <th>year</th>
-                    <th>make</th>
-                    <th>model</th>
-                    <th>mods</th>
-                    <th>current?</th>
-                    <th>Add img</th>
+                    <th>created</th>
+                    <th>author</th>
+                    <th>tags</th>
                     <th>delete</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let car of cars; let i=index">
-                    <td>{{car.name}}</td>
-                    <td>{{car.year}}</td>
-                    <td>{{car.make}}</td>
-                    <td>{{car.model}}</td>
+                <tr *ngFor="let blog of blogs; let i=index">
+                    <td>{{blog.name}}</td>
+                    <td>{{blog.creationDate}}</td>
+                    <td>{{blog.author}}</td>
+                    <td>{{blog.tags}}</td>
                     <td>
-                        <ul>
-                            <li>
-                            </li>
-                        </ul>
-                        <a class="btn btn-primary btn-xs">add</a>
-                    </td>
-                    <td> <a class="btn btn-warning btn-xs">{{car.currentCar}}</a></td>
-                    <td><a class="btn btn-primary btn-xs">+img</a></td>
-                    <td>
-                        <a (click)="onclickDeleteCar(i)" class="btn btn-danger btn-xs" [routerLink]="['/admin']">DEL</a>
+                        <a (click)="onclickDeleteBlog(i)" class="btn btn-danger btn-xs" [routerLink]="['/admin']">DEL</a>
                     </td>
                 </tr>
             </tbody>
@@ -134,43 +122,31 @@
             <thead>
                 <tr>
                     <th>name</th>
-                    <th>year</th>
-                    <th>make</th>
-                    <th>model</th>
-                    <th>mods</th>
-                    <th>current?</th>
-                    <th>Add img</th>
+                    <th>details</th>
+                    <th>url</th>
+                    <th>img url</th>
                     <th>delete</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let car of cars; let i=index">
-                    <td>{{car.name}}</td>
-                    <td>{{car.year}}</td>
-                    <td>{{car.make}}</td>
-                    <td>{{car.model}}</td>
+                <tr *ngFor="let project of projects; let i=index">
+                    <td>{{project.name}}</td>
+                    <td>{{project.details}}</td>
+                    <td>{{project.url}}</td>
+                    <td>{{project.logopath}}</td>
                     <td>
-                        <ul>
-                            <li>
-                            </li>
-                        </ul>
-                        <a class="btn btn-primary btn-xs">add</a>
-                    </td>
-                    <td> <a class="btn btn-warning btn-xs">{{car.currentCar}}</a></td>
-                    <td><a class="btn btn-primary btn-xs">+img</a></td>
-                    <td>
-                        <a (click)="onclickDeleteCar(i)" class="btn btn-danger btn-xs" [routerLink]="['/admin']">DEL</a>
+                        <a (click)="onclickDeleteProject(i)" class="btn btn-danger btn-xs" [routerLink]="['/admin']">DEL</a>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div class="tab-pane fade" id="dropdown1">
+    <!--<div class="tab-pane fade" id="dropdown1">
         <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia
             banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork.</p>
     </div>
     <div class="tab-pane fade" id="dropdown2">
         <p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin.
             Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater.</p>
-    </div>
+    </div>-->
 </div>

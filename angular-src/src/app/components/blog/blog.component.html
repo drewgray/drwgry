@@ -1,3 +1,11 @@
-<p>
-    Found my blog
-</p>
+<h1>Blog Name....</h1>
+
+<div *ngFor="let blog of blogs">
+    <h3>
+        {{blog.name}}
+    </h3>
+    <small>{{blog.author}} - {{blog.creationDate}}</small>
+
+    <p>{{blog.bodytext}}</p>
+    <p>{{blog.bodyhtml}}</p>
+</div>

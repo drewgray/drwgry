@@ -230,7 +230,7 @@ router.post('/promote', (req, res, next) => {
     });
 });
 
-//promote role to next highest
+//delete user
 router.post('/delete', (req, res, next) => {
     User.getUserById(req.body.id, (err, user) => {
         if (err) throw err;

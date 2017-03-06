@@ -20,10 +20,15 @@ import { CarsComponent } from './components/cars/cars.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { BlogComponent } from './components/blog/blog.component';
 import { AddCarComponent } from './components/add-car/add-car.component';
+import { AddProjectComponent } from './components/add-project/add-project.component';
+import { AddBlogComponent } from './components/add-blog/add-blog.component';
 
 import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
 import { CarService } from './services/car.service';
+import { BlogService } from './services/blog.service';
+import { ProjectService } from './services/project.service';
+
 import {FlashMessagesModule} from 'angular2-flash-messages';
 import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 import { ModalModule } from 'angular2-modal';
@@ -32,11 +37,6 @@ import { CarouselModule } from 'ng2-bootstrap';
 
 import {AuthGuard} from './guards/auth.guard';
 import {AdminGuard} from './guards/admin.guard';
-import { AddProjectComponent } from './components/add-project/add-project.component';
-import { AddBlogComponent } from './components/add-blog/add-blog.component';
-
-
-
 
 
 const appRoutes: Routes = [
@@ -93,6 +93,8 @@ const appRoutes: Routes = [
     ValidateService, 
     AuthService, 
     CarService,
+    BlogService,
+    ProjectService,
     AuthGuard, 
     AdminGuard],
   bootstrap: [AppComponent]

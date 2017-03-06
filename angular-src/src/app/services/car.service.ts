@@ -23,4 +23,11 @@ export class CarService {
       .map(res => res.json());
   }
 
+  deleteCar(car){
+      let headers = new Headers();
+      headers.append('Content-Type','application/json');
+      return this.http.post('http://localhost:3000/carss/delete', car, {headers: headers})
+        .map(res => res.json());
+  }
+
 }

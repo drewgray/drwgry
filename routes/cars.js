@@ -3,7 +3,6 @@ const router = express.Router();
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const config = require('../config/database');
-const User = require('../models/user');
 const Car = require('../models/car');
 
 //Add car
@@ -42,6 +41,21 @@ router.get('/all', (req, res, next) => {
             res.json({ success: true, cars: cars });
         } else {
             res.json({ success: false, cars: '' });
+        }
+    });
+});
+
+//delete car
+router.post('/delete', (req, res, next) => {
+    Car.getCarById(req.body._id, (err, car) => {
+        if (err) throw err;
+        if (car) {
+            Car.deleteCar(car._id, (err, result) => {
+                if (err) { console.log(err); }
+                res.json({ success: true });
+            });
+        } else {
+            res.json({ success: false });
         }
     });
 });
