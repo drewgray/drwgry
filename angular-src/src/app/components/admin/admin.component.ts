@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewContainerRef} from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { CarService } from '../../services/car.service';
 import { Router } from '@angular/router';
 import {FlashMessagesService} from 'angular2-flash-messages';
 import { Overlay } from 'angular2-modal';
@@ -13,6 +14,7 @@ import { Modal } from 'angular2-modal/plugins/bootstrap';
 export class AdminComponent implements OnInit {
 
   users:any;
+  cars:any;
 
   constructor(
     private authService:AuthService, 
@@ -20,7 +22,8 @@ export class AdminComponent implements OnInit {
     private flashMessage:FlashMessagesService,
     overlay: Overlay, 
     vcRef: ViewContainerRef, 
-    public modal: Modal) 
+    public modal: Modal,
+    private carService:CarService) 
     {
       overlay.defaultViewContainer = vcRef;
      }
@@ -28,6 +31,16 @@ export class AdminComponent implements OnInit {
   ngOnInit() {
     this.authService.getAllUsers().subscribe(allusers => {
      this.users = allusers.users;
+    },
+    err => {
+      console.log(err);
+      return false;
+    });
+
+    this.carService.getAllCars().subscribe(allcars => {
+     if (allcars.success){
+     this.cars = allcars.cars;
+     }
     },
     err => {
       console.log(err);
@@ -48,6 +61,10 @@ export class AdminComponent implements OnInit {
             .then((dialog: any) => { return dialog.result })
             .then((result: any) => { this.confirmDelete(uname, i) })
             .catch((err: any) =>  console.log('delete cancelled'));
+  }
+
+  onclickDeleteCar(i){
+
   }
 
   confirmDelete(uname, i){

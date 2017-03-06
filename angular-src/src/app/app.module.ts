@@ -19,9 +19,11 @@ import { ResumeComponent } from './components/resume/resume.component';
 import { CarsComponent } from './components/cars/cars.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { BlogComponent } from './components/blog/blog.component';
+import { AddCarComponent } from './components/add-car/add-car.component';
 
 import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
+import { CarService } from './services/car.service';
 import {FlashMessagesModule} from 'angular2-flash-messages';
 import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 import { ModalModule } from 'angular2-modal';
@@ -30,6 +32,9 @@ import { CarouselModule } from 'ng2-bootstrap';
 
 import {AuthGuard} from './guards/auth.guard';
 import {AdminGuard} from './guards/admin.guard';
+import { AddProjectComponent } from './components/add-project/add-project.component';
+import { AddBlogComponent } from './components/add-blog/add-blog.component';
+
 
 
 
@@ -46,7 +51,10 @@ const appRoutes: Routes = [
   {path: 'projects', component: ProjectsComponent},
   {path: 'resume', component: ResumeComponent},
   {path: 'cars', component: CarsComponent},
-  {path: 'blog', component: BlogComponent}
+  {path: 'blog', component: BlogComponent},
+  {path: 'addcar', component: AddCarComponent, canActivate:[AuthGuard, AdminGuard]},
+  {path: 'addproject', component: AddProjectComponent, canActivate:[AuthGuard, AdminGuard]},
+  {path: 'addblogpost', component: AddBlogComponent, canActivate:[AuthGuard, AdminGuard]}
 ]
 
 @NgModule({
@@ -65,7 +73,10 @@ const appRoutes: Routes = [
     ResumeComponent,
     CarsComponent,
     FooterComponent,
-    BlogComponent
+    BlogComponent,
+    AddCarComponent,
+    AddProjectComponent,
+    AddBlogComponent
   ],
   imports: [
     BrowserModule,
@@ -78,7 +89,12 @@ const appRoutes: Routes = [
     BootstrapModalModule,
     CarouselModule.forRoot()
   ],
-  providers: [ValidateService, AuthService, AuthGuard, AdminGuard],
+  providers: [
+    ValidateService, 
+    AuthService, 
+    CarService,
+    AuthGuard, 
+    AdminGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

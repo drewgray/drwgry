@@ -18,9 +18,9 @@ export class CarsComponent implements OnInit {
 
   currentImg:String;
 
-  gtrImages:Car[];
+  gtrImages:Object[];
   nGTR:number;
-  talonImages:Car[];
+  talonImages:Object[];
   nTalon:number;
   gromImages:Car[];
   nGrom:number;

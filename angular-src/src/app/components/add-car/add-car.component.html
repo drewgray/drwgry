@@ -1,0 +1,29 @@
+<h3 class="page-header">Add car</h3>
+<form #regForm="ngForm" novalidate (ngSubmit)="onAddSubmit(regForm.value, regForm.valid)">
+    <div class="form-group">
+        <label>Name</label>
+        <input type="text" [(ngModel)]="car.name" name="name" class="form-control" (focusout)="onFocusoutName(regForm.value, regForm.valid)" #name="ngModel">
+        <small *ngIf='!carNameValid && name.dirty' class="text-danger">already taken</small>
+        <small *ngIf='!name.valid' class="text-danger">required</small>
+    </div>
+    <div class="form-group">
+        <label>Year</label>
+        <input type="number" [(ngModel)]="car.year" name="year" class="form-control" #year="ngModel" required>
+        <small *ngIf='!year.valid' class="text-danger">required</small>
+    </div>
+    <div class="form-group">
+        <label>Make</label>
+        <input type="text" [(ngModel)]="car.make" name="make" class="form-control" #make="ngModel" required>
+        <small *ngIf='!make.valid' class="text-danger">required</small>
+    </div>
+    <div class="form-group">
+        <label>Model</label>
+        <input type="text" [(ngModel)]="car.model" name="model" class="form-control" #model="ngModel" required>
+        <small *ngIf='!model.valid' class="text-danger">required</small>
+    </div>
+    <div class="form-group">
+        <label>Current car?</label>
+        <input type="checkbox" [(ngModel)]="car.currentCar" name="currentCar" class="form-control" #currentCar="ngModel" required>
+    </div>
+    <input type="submit" class="btn btn-primary" value="Submit" [disabled]="!regForm.valid">
+</form>

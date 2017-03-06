@@ -12,10 +12,6 @@ import {User} from '../../interfaces/user.interface';
 })
 export class RegisterComponent implements OnInit {
 
-  // name: String;
-  // username: String;
-  // email: String;
-  // password: String;
   public user: User;
 
   usernameValid: Boolean = true;
