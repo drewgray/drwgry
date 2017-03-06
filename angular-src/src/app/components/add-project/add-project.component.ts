@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {ValidateService} from '../../services/validate.service';
 import {AuthService} from '../../services/auth.service';
-import {CarService} from '../../services/car.service';
+import {ProjectService} from '../../services/project.service';
 import {FlashMessagesService} from 'angular2-flash-messages';
 import {Router} from '@angular/router';
-import {Car} from '../../interfaces/cars.interface';
 import {Project} from '../../interfaces/project.interface';
 
 @Component({
@@ -14,43 +13,40 @@ import {Project} from '../../interfaces/project.interface';
 })
 export class AddProjectComponent implements OnInit {
 
-  public car: Car;
+  public project: Project;
 
-  carNameValid: Boolean = true;
+  projectNameValid: Boolean = true;
 
   constructor(
     private validateService: ValidateService, 
     private authService: AuthService, 
     private flashMessage:FlashMessagesService,
     private router: Router,
-    private carService: CarService
+    private projectService: ProjectService
   ) { }
 
   ngOnInit() {
-    this.car = {
+
+    this.project = {
       name: '',
-      make: '',
-      model: '',
-      year: 1900,
-      currentCar: false,
-      creationDate: Date.now()
+      details: '',
+      url: '',
+      logopath: ''
     }
   }
 
-  onAddSubmit(model: Car, isValid: boolean){
-    const car = {
+  onAddSubmit(model: Project, isValid: boolean){
+    const project = {
       name: model.name,
-      year: model.year,
-      make: model.make,
-      model: model.model,
-      currentCar: model.currentCar,
-      creationDate: Date.now()
+      details: model.details,
+      url: model.url,
+      logopath: model.logopath
     }
 
       if (isValid){
-        this.carService.addCar(car).subscribe(data => {
+        this.projectService.addProject(project).subscribe(data => {
           if(data.success){
-            this.flashMessage.show('Car has been added', {cssClass: 'alert-success', timeout: 3000});
+            this.flashMessage.show('Project has been added', {cssClass: 'alert-success', timeout: 3000});
           } else {
             this.flashMessage.show('Oops. Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
           }
@@ -59,8 +55,8 @@ export class AddProjectComponent implements OnInit {
     }
   }
 
-   onFocusoutName(model: Car, isValid: boolean){
-  const car = {
+   onFocusoutName(model: Project, isValid: boolean){
+  const project = {
       name: model.name
     }
 

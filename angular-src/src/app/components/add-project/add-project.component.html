@@ -1,3 +1,25 @@
-<p>
-  add-project works!
-</p>
+<h3 class="page-header">Add project</h3>
+<form #regForm="ngForm" novalidate (ngSubmit)="onAddSubmit(regForm.value, regForm.valid)">
+    <div class="form-group">
+        <label>Name</label>
+        <input type="text" [(ngModel)]="project.name" name="name" class="form-control" (focusout)="onFocusoutName(regForm.value, regForm.valid)" #name="ngModel">
+        <small *ngIf='!projectNameValid && name.dirty' class="text-danger">already taken</small>
+        <small *ngIf='!name.valid' class="text-danger">required</small>
+    </div>
+    <div class="form-group">
+        <label>Details</label>
+        <input type="text" [(ngModel)]="project.details" name="details" class="form-control" #details="ngModel" required>
+        <small *ngIf='!details.valid' class="text-danger">required</small>
+    </div>
+    <div class="form-group">
+        <label>URL</label>
+        <input type="text" [(ngModel)]="project.url" name="url" class="form-control" #url="ngModel" required>
+        <small *ngIf='!url.valid' class="text-danger">required</small>
+    </div>
+    <div class="form-group">
+        <label>Logo</label>
+        <input type="text" [(ngModel)]="project.logopath" name="logo" class="form-control" #logo="ngModel" required>
+        <small *ngIf='!logo.valid' class="text-danger">required</small>
+    </div>
+    <input type="submit" class="btn btn-primary" value="Submit" [disabled]="!regForm.valid">
+</form>

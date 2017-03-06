@@ -35,7 +35,7 @@ module.exports.getAllProjects = function(data, callback) {
     Project.find(callback);
 }
 
-module.exports.addCar = function(newProject, callback) {
+module.exports.addProject = function(newProject, callback) {
     newProject.save(callback);
 }
 

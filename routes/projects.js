@@ -44,10 +44,10 @@ router.get('/all', (req, res, next) => {
 
 //delete project
 router.post('/delete', (req, res, next) => {
-    Car.getProjectById(req.body._id, (err, project) => {
+    Project.getProjectById(req.body._id, (err, project) => {
         if (err) throw err;
         if (project) {
-            Car.deleteProject(project._id, (err, result) => {
+            Project.deleteProject(project._id, (err, result) => {
                 if (err) { console.log(err); }
                 res.json({ success: true });
             });
