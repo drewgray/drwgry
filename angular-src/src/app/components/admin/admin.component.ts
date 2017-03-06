@@ -232,4 +232,16 @@ export class AdminComponent implements OnInit {
       });
   }
 
+  onclickEditCar(i){
+
+  }
+
+  onclickEditBlog(i){
+
+  }
+
+  onclickEditProject(i){
+
+  }
+
 }

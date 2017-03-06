@@ -62,7 +62,7 @@
                     <th>mods</th>
                     <th>current?</th>
                     <th>Add img</th>
-                    <th>delete</th>
+                    <th>Modify</th>
                 </tr>
             </thead>
             <tbody>
@@ -81,6 +81,7 @@
                     <td> <a class="btn btn-warning btn-xs">{{car.currentCar}}</a></td>
                     <td><a class="btn btn-primary btn-xs">+img</a></td>
                     <td>
+                        <a (click)="onclickEditCar(i)" class="btn btn-primary btn-xs" [routerLink]="['/admin']">EDIT</a>
                         <a (click)="onclickDeleteCar(i)" class="btn btn-danger btn-xs" [routerLink]="['/admin']">DEL</a>
                     </td>
                 </tr>
@@ -98,7 +99,7 @@
                     <th>created</th>
                     <th>author</th>
                     <th>tags</th>
-                    <th>delete</th>
+                    <th>Modify</th>
                 </tr>
             </thead>
             <tbody>
@@ -108,6 +109,7 @@
                     <td>{{blog.author}}</td>
                     <td>{{blog.tags}}</td>
                     <td>
+                        <a (click)="onclickEditBlog(i)" class="btn btn-primary btn-xs" [routerLink]="['/admin']">EDIT</a>
                         <a (click)="onclickDeleteBlog(i)" class="btn btn-danger btn-xs" [routerLink]="['/admin']">DEL</a>
                     </td>
                 </tr>
@@ -125,7 +127,7 @@
                     <th>details</th>
                     <th>url</th>
                     <th>img url</th>
-                    <th>delete</th>
+                    <th>Modify</th>
                 </tr>
             </thead>
             <tbody>
@@ -135,6 +137,7 @@
                     <td>{{project.url}}</td>
                     <td>{{project.logopath}}</td>
                     <td>
+                        <a (click)="onclickEditProject(i)" class="btn btn-primary btn-xs" [routerLink]="['/admin']">EDIT</a>
                         <a (click)="onclickDeleteProject(i)" class="btn btn-danger btn-xs" [routerLink]="['/admin']">DEL</a>
                     </td>
                 </tr>
