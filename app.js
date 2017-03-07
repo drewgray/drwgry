@@ -91,7 +91,6 @@ app.post('/upload', function(req, res) {
 
     // once all the files have been uploaded, send a response to the client
     form.on('end', function() {
-        console.log(files);
         bucket.upload(path.join(form.uploadDir, files), function(err, gfile) {
             if (!err) {
                 fs.unlink(path.join(form.uploadDir, files), function(err) {});
