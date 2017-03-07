@@ -34,6 +34,7 @@ import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 import { ModalModule } from 'angular2-modal';
 import {BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import { CarouselModule } from 'ng2-bootstrap';
+import { FileUploader } from 'ng2-file-upload';
 
 import {AuthGuard} from './guards/auth.guard';
 import {AdminGuard} from './guards/admin.guard';

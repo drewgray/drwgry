@@ -36,25 +36,25 @@ export class CarsComponent implements OnInit {
       this.lastimg = false;
       this.currentImg = '';
       
-      this.gtrImages = [{"title": "1", "url": 'assets/img/cars/gtr/1.jpg'},
-                        {"title": "2", "url": 'assets/img/cars/gtr/2.jpg'},
-                        {"title": "3", "url": 'assets/img/cars/gtr/3.jpg'},
-                        {"title": "4", "url": 'assets/img/cars/gtr/4.jpg'},
-                        {"title": "5", "url": 'assets/img/cars/gtr/5.jpg'},
-                        {"title": "6", "url": 'assets/img/cars/gtr/6.jpg'},
-                        {"title": "7", "url": 'assets/img/cars/gtr/7.jpg'},
-                        {"title": "8", "url": 'assets/img/cars/gtr/8.jpg'}
+      this.gtrImages = [{"title": "1", "url": 'http://assets.drwgry.com/img/cars/gtr/1.jpg'},
+                        {"title": "2", "url": 'http://assets.drwgry.com/img/cars/gtr/2.jpg'},
+                        {"title": "3", "url": 'http://assets.drwgry.com/img/cars/gtr/3.jpg'},
+                        {"title": "4", "url": 'http://assets.drwgry.com/img/cars/gtr/4.jpg'},
+                        {"title": "5", "url": 'http://assets.drwgry.com/img/cars/gtr/5.jpg'},
+                        {"title": "6", "url": 'http://assets.drwgry.com/img/cars/gtr/6.jpg'},
+                        {"title": "7", "url": 'http://assets.drwgry.com/img/cars/gtr/7.jpg'},
+                        {"title": "8", "url": 'http://assets.drwgry.com/img/cars/gtr/8.jpg'}
                         ];
 
-    this.talonImages = [{"title": "1", "url": 'assets/img/cars/talon/1.jpg'},
-                        {"title": "2", "url": 'assets/img/cars/talon/2.jpg'},
-                        {"title": "3", "url": 'assets/img/cars/talon/3.jpg'},
-                        {"title": "4", "url": 'assets/img/cars/talon/4.jpg'}
+    this.talonImages = [{"title": "1", "url": 'http://assets.drwgry.com/img/cars/talon/1.jpg'},
+                        {"title": "2", "url": 'http://assets.drwgry.com/img/cars/talon/2.jpg'},
+                        {"title": "3", "url": 'http://assets.drwgry.com/img/cars/talon/3.jpg'},
+                        {"title": "4", "url": 'http://assets.drwgry.com/img/cars/talon/4.jpg'}
                         ];
 
-    this.gromImages = [{"title": "1", "url": 'assets/img/cars/grom/1.jpg'}];
+    this.gromImages = [{"title": "1", "url": 'http://assets.drwgry.com/img/cars/grom/1.jpg'}];
 
-    this.evoqueImages = [{"title": "1", "url": 'assets/img/cars/evoque/1.jpg'}];
+    this.evoqueImages = [{"title": "1", "url": 'http://assets.drwgry.com/img/cars/evoque/1.jpg'}];
 
     this.nGTR = this.gtrImages.length*100;
     this.nTalon = this.talonImages.length*100;
