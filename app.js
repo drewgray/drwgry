@@ -8,10 +8,10 @@ const config = require('./config/database');
 var formidable = require('formidable');
 var fs = require('fs');
 var gcs = require('@google-cloud/storage')({
-    projectId: 'drwgry-proj',
-    keyFilename: './config/drwgry-proj-00d1e69a420b.json'
+    projectId: config.GCLOUD_PROJECT,
+    keyFilename: config.keyfile
 });
-var bucket = gcs.bucket('assets.drwgry.com');
+var bucket = gcs.bucket(config.CLOUD_BUCKET);
 
 // Connect to DB
 mongoose.connect(config.database);

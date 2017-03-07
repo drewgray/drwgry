@@ -61,17 +61,12 @@ export class AddProjectComponent implements OnInit {
 
             let formData = new FormData();
 
-            console.log("File Count: " + fileCount);
-
             if( fileCount > 0 ){
               for(let i = 0; i < fileCount; i++){
-                console.log("Count: " + i);
                 formData.append('uploads[]', inputFile.files.item(i), inputFile.files.item(i).name);
               }
-              console.log("Form Data: " + formData);
 
               this.uploadService.uploadFiles(formData).subscribe(data => {
-                console.log(data);
                 project.logopath = data.urls;
                 this.projectService.addProject(project).subscribe(data => {
                 if(data.success){
