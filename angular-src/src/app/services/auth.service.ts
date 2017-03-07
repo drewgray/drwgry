@@ -14,14 +14,14 @@ export class AuthService {
   registerUser(user){
     let headers = new Headers();
     headers.append('Content-Type','application/json');
-    return this.http.post('http://localhost:3000/users/register', user, {headers: headers})
+    return this.http.post('http://localhost:3001/users/register', user, {headers: headers})
       .map(res => res.json());
   }
 
   authenticateUser(user){
     let headers = new Headers();
     headers.append('Content-Type','application/json');
-    return this.http.post('http://localhost:3000/users/authenticate', user, {headers: headers})
+    return this.http.post('http://localhost:3001/users/authenticate', user, {headers: headers})
       .map(res => res.json());
   }
 
@@ -30,7 +30,7 @@ export class AuthService {
     this.loadToken();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type','application/json');
-    return this.http.get('http://localhost:3000/users/profile', {headers: headers})
+    return this.http.get('http://localhost:3001/users/profile', {headers: headers})
       .map(res => res.json());
   }
 
@@ -41,7 +41,7 @@ export class AuthService {
     if (this.user && this.user.role == 'admin'){
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type','application/json');
-    return this.http.get('http://localhost:3000/users/getall', {headers: headers})
+    return this.http.get('http://localhost:3001/users/getall', {headers: headers})
       .map(res => res.json());
     } 
     return JSON.parse("false");
@@ -90,7 +90,7 @@ export class AuthService {
   resetAccount(user){
     let headers = new Headers();
     headers.append('Content-Type','application/json');
-    return this.http.post('http://localhost:3000/users/resetpw', user, {headers: headers})
+    return this.http.post('http://localhost:3001/users/resetpw', user, {headers: headers})
       .map(res => res.json());
   }
 
@@ -99,7 +99,7 @@ export class AuthService {
     this.loadUser();
     user.username = this.user.username;
     headers.append('Content-Type','application/json');
-    return this.http.post('http://localhost:3000/users/updatepw', user, {headers: headers})
+    return this.http.post('http://localhost:3001/users/updatepw', user, {headers: headers})
       .map(res => res.json());
   }
 
@@ -109,7 +109,7 @@ export class AuthService {
       let headers = new Headers();
       headers.append('Authorization', this.authToken);
       headers.append('Content-Type','application/json');
-      return this.http.post('http://localhost:3000/users/promote', user, {headers: headers})
+      return this.http.post('http://localhost:3001/users/promote', user, {headers: headers})
         .map(res => res.json());
     } 
     return JSON.parse("false");
@@ -121,7 +121,7 @@ export class AuthService {
       let headers = new Headers();
       headers.append('Authorization', this.authToken);
       headers.append('Content-Type','application/json');
-      return this.http.post('http://localhost:3000/users/demote', user, {headers: headers})
+      return this.http.post('http://localhost:3001/users/demote', user, {headers: headers})
         .map(res => res.json());
     } 
     return JSON.parse("false");
@@ -133,7 +133,7 @@ export class AuthService {
       let headers = new Headers();
       headers.append('Authorization', this.authToken);
       headers.append('Content-Type','application/json');
-      return this.http.post('http://localhost:3000/users/delete', user, {headers: headers})
+      return this.http.post('http://localhost:3001/users/delete', user, {headers: headers})
         .map(res => res.json());
     } 
     return JSON.parse("false");

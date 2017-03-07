@@ -23,14 +23,14 @@ export class ValidateService {
   validateUsername(user){
     let headers = new Headers();
     headers.append('Content-Type','application/json');
-    return this.http.post('http://localhost:3000/users/exists', user, {headers: headers})
+    return this.http.post('http://localhost:3001/users/exists', user, {headers: headers})
       .map(res => res.json());
   }
 
   validateEmailexists(user){
     let headers = new Headers();
     headers.append('Content-Type','application/json');
-    return this.http.post('http://localhost:3000/users/getemail', user, {headers: headers})
+    return this.http.post('http://localhost:3001/users/getemail', user, {headers: headers})
       .map(res => res.json());
   }
 

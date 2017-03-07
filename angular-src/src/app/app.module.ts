@@ -28,6 +28,7 @@ import { AuthService } from './services/auth.service';
 import { CarService } from './services/car.service';
 import { BlogService } from './services/blog.service';
 import { ProjectService } from './services/project.service';
+import { UploadService } from './services/upload.service';
 
 import {FlashMessagesModule} from 'angular2-flash-messages';
 import { Ng2GoogleChartsModule } from 'ng2-google-charts';
@@ -96,6 +97,7 @@ const appRoutes: Routes = [
     CarService,
     BlogService,
     ProjectService,
+    UploadService,
     AuthGuard, 
     AdminGuard],
   bootstrap: [AppComponent]

@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import {ValidateService} from '../../services/validate.service';
 import {AuthService} from '../../services/auth.service';
 import {ProjectService} from '../../services/project.service';
 import {FlashMessagesService} from 'angular2-flash-messages';
 import {Router} from '@angular/router';
 import {Project} from '../../interfaces/project.interface';
-//import { FileUploader } from 'ng2-file-upload';
+import {UploadService} from '../../services/upload.service';
+import { Http } from '@angular/http';
 
 const URL = '';
 
@@ -22,15 +23,16 @@ export class AddProjectComponent implements OnInit {
 
   projImage: any;
 
- // public uploader:FileUploader = new FileUploader({url: URL});
+ @ViewChild('inputFile') inputFile:ElementRef;
 
   constructor(
     private validateService: ValidateService, 
     private authService: AuthService, 
     private flashMessage:FlashMessagesService,
     private router: Router,
-    private projectService: ProjectService
-   // private fu: FileUploader
+    private projectService: ProjectService,
+    private uploadService: UploadService,
+    private e1: ElementRef
   ) { }
 
   ngOnInit() {
@@ -48,39 +50,54 @@ export class AddProjectComponent implements OnInit {
       name: model.name,
       details: model.details,
       url: model.url,
-      logopath: this.project.logopath
+      logopath: ''
     }
 
       if (isValid){
+              // Get form input
+            let inputFile: HTMLInputElement = this.inputFile.nativeElement;
 
-        this.projectService.addProject(project).subscribe(data => {
-          if(data.success){
-            this.flashMessage.show('Project has been added', {cssClass: 'alert-success', timeout: 3000});
-          } else {
-            this.flashMessage.show('Oops. Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
-          }
-          this.router.navigate(['/admin']);
-      });
+            let fileCount: number = inputFile.files.length;
+
+            let formData = new FormData();
+
+            console.log("File Count: " + fileCount);
+
+            if( fileCount > 0 ){
+              for(let i = 0; i < fileCount; i++){
+                console.log("Count: " + i);
+                formData.append('uploads[]', inputFile.files.item(i), inputFile.files.item(i).name);
+              }
+              console.log("Form Data: " + formData);
+
+              this.uploadService.uploadFiles(formData).subscribe(data => {
+                console.log(data);
+                project.logopath = data.urls;
+                this.projectService.addProject(project).subscribe(data => {
+                if(data.success){
+                  this.flashMessage.show('Project has been added', {cssClass: 'alert-success', timeout: 3000});
+                } else {
+                  this.flashMessage.show('Oops. Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
+                }
+                this.router.navigate(['/admin']);
+                });
+              });
+            } else{
+              this.flashMessage.show('Oops. Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
+            }
     }
   }
 
    onFocusoutName(model: Project, isValid: boolean){
-  const project = {
-      name: model.name
+      const project = {
+          name: model.name
+        }
+
+  }
+
+    sendToServer(){
+
     }
-
-    // if(this.validateService.validateEmail(user.email)){
-    //   this.emailValid = true;
-    // } else{
-    //   this.emailValid = false;
-    // }
-
-  }
-
-  fileChangeEvent(fileInput: any){
-    console.log(this.projImage);
-    this.project.logopath = fileInput.target.files;
-  }
 
 }
 

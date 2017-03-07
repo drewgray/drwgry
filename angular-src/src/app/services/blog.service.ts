@@ -12,21 +12,21 @@ export class BlogService {
 
   getAllBlogs(){
     let headers = new Headers();
-    return this.http.get('http://localhost:3000/blogs/all', {headers: headers})
+    return this.http.get('http://localhost:3001/blogs/all', {headers: headers})
       .map(res => res.json());
   }
 
     addBlog(blog){
     let headers = new Headers();
     headers.append('Content-Type','application/json');
-    return this.http.post('http://localhost:3000/blogs/add', blog, {headers: headers})
+    return this.http.post('http://localhost:3001/blogs/add', blog, {headers: headers})
       .map(res => res.json());
   }
 
   deleteBlog(blog){
       let headers = new Headers();
       headers.append('Content-Type','application/json');
-      return this.http.post('http://localhost:3000/blogs/delete', blog, {headers: headers})
+      return this.http.post('http://localhost:3001/blogs/delete', blog, {headers: headers})
         .map(res => res.json());
   }
 

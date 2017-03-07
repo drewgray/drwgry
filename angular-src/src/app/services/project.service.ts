@@ -12,7 +12,7 @@ export class ProjectService {
 
   getAllProjects(){
     let headers = new Headers();
-    return this.http.get('http://localhost:3000/projects/all', {headers: headers})
+    return this.http.get('http://localhost:3001/projects/all', {headers: headers})
       .map(res => res.json());
   }
 
@@ -20,14 +20,14 @@ export class ProjectService {
       console.log(project);
     let headers = new Headers();
     headers.append('Content-Type','application/json');
-    return this.http.post('http://localhost:3000/projects/add', project, {headers: headers})
+    return this.http.post('http://localhost:3001/projects/add', project, {headers: headers})
       .map(res => res.json());
   }
 
   deleteProject(proj){
       let headers = new Headers();
       headers.append('Content-Type','application/json');
-      return this.http.post('http://localhost:3000/projects/delete', proj, {headers: headers})
+      return this.http.post('http://localhost:3001/projects/delete', proj, {headers: headers})
         .map(res => res.json());
   }
 
