@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const config = require('../config/database');
+var datastore = require('@google-cloud/datastore')({
+    projectId: config.GCLOUD_PROJECT,
+    keyFilename: config.keyfile
+});
 
 //User Schema
 const UserSchema = mongoose.Schema({

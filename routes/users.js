@@ -53,7 +53,7 @@ router.post('/authenticate', (req, res, next) => {
             User.updateRole(user, 'temp', (err) => { if (err) throw err; });
         }
 
-        User.comparePassword(password, user.password, (ess, isMatch) => {
+        User.comparePassword(password, user.password, (err, isMatch) => {
             if (err) throw err;
             if (isMatch) {
                 User.updateLastLogin(user, (err) => { if (err) throw err; });

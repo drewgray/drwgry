@@ -13,6 +13,11 @@ var gcs = require('@google-cloud/storage')({
 });
 var bucket = gcs.bucket(config.CLOUD_BUCKET);
 
+var datastore = require('@google-cloud/datastore')({
+    projectId: config.GCLOUD_PROJECT,
+    keyFilename: config.keyfile
+});
+
 // Connect to DB
 mongoose.connect(config.database);
 
@@ -42,7 +47,7 @@ const blogs = require('./routes/blogs');
 const projects = require('./routes/projects');
 
 //Port Number
-const port = 3001;
+const port = process.env.PORT || 8080;
 
 //CORS Middleware
 app.use(cors());

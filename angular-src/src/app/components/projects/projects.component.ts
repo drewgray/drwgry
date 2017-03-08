@@ -16,7 +16,6 @@ export class ProjectsComponent implements OnInit {
     this.projectService.getAllProjects().subscribe(data => {
       if (data.success){
       this.projects = data.projects;
-      console.log(this.projects);
       }
     },
     err => {

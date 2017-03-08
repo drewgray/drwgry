@@ -12,21 +12,21 @@ export class CarService {
 
   getAllCars(){
     let headers = new Headers();
-    return this.http.get('http://localhost:3001/cars/all', {headers: headers})
+    return this.http.get('cars/all', {headers: headers})
       .map(res => res.json());
   }
 
     addCar(car){
     let headers = new Headers();
     headers.append('Content-Type','application/json');
-    return this.http.post('http://localhost:3001/cars/add', car, {headers: headers})
+    return this.http.post('cars/add', car, {headers: headers})
       .map(res => res.json());
   }
 
   deleteCar(car){
       let headers = new Headers();
       headers.append('Content-Type','application/json');
-      return this.http.post('http://localhost:3001/carss/delete', car, {headers: headers})
+      return this.http.post('cars/delete', car, {headers: headers})
         .map(res => res.json());
   }
 
