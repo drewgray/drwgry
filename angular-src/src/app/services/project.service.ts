@@ -17,7 +17,6 @@ export class ProjectService {
   }
 
     addProject(project){
-      console.log(project);
     let headers = new Headers();
     headers.append('Content-Type','application/json');
     return this.http.post('projects/add', project, {headers: headers})
