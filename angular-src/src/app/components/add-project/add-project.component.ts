@@ -23,7 +23,7 @@ export class AddProjectComponent implements OnInit {
 
   projImage: any;
 
- @ViewChild('inputFile') inputFile:ElementRef;
+  @ViewChild('inputFile') inputFile:ElementRef;
 
   constructor(
     private validateService: ValidateService, 
@@ -41,11 +41,11 @@ export class AddProjectComponent implements OnInit {
       name: '',
       details: '',
       url: '',
-      logopath: ''
+      logopath: '',
     }
   }
 
-  onAddSubmit(model: Project, isValid: boolean){
+  onAddSubmit(model: any, isValid: boolean){
     const project = {
       name: model.name,
       details: model.details,
@@ -53,19 +53,13 @@ export class AddProjectComponent implements OnInit {
       logopath: ''
     }
 
+    let target: HTMLInputElement = this.inputFile.nativeElement;
+    let files: FileList = target.files;
+    this.projImage = files[0];
+    let formData = new FormData();
+    formData.append('inputFile', this.projImage, this.projImage.name);
+
       if (isValid){
-              // Get form input
-            let inputFile: HTMLInputElement = this.inputFile.nativeElement;
-
-            let fileCount: number = inputFile.files.length;
-
-            let formData = new FormData();
-
-            if( fileCount > 0 ){
-              for(let i = 0; i < fileCount; i++){
-                formData.append('uploads[]', inputFile.files.item(i), inputFile.files.item(i).name);
-              }
-
               this.uploadService.uploadFiles(formData).subscribe(data => {
                 project.logopath = data.urls;
                 this.projectService.addProject(project).subscribe(data => {
@@ -81,7 +75,6 @@ export class AddProjectComponent implements OnInit {
               this.flashMessage.show('Oops. Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
             }
     }
-  }
 
    onFocusoutName(model: Project, isValid: boolean){
       const project = {
@@ -90,9 +83,6 @@ export class AddProjectComponent implements OnInit {
 
   }
 
-    sendToServer(){
-
-    }
 
 }
 

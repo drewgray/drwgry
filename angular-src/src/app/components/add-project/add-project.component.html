@@ -1,5 +1,5 @@
 <h3 class="page-header">Add project</h3>
-<form #regForm="ngForm" novalidate (ngSubmit)="onAddSubmit(regForm.value, regForm.valid)">
+<form #regForm="ngForm" enctype="multipart/form-data" novalidate (ngSubmit)="onAddSubmit(regForm.value, regForm.valid)">
     <div class="form-group">
         <label>Name</label>
         <input type="text" [(ngModel)]="project.name" name="name" class="form-control" (focusout)="onFocusoutName(regForm.value, regForm.valid)" #name="ngModel">
@@ -20,7 +20,7 @@
         <label>Logo</label>
         <!--<input type="file" ng2FileSelect [uploader]="uploader" multiple />
         <input type="file" (change)="fileChangeEvent($event)" placeholder="Upload file..." [(ngModel)]="projImage" name="logo" class="form-control" #logo="ngModel" required>-->
-        <input #inputFile (change)="sendToServer()" id="upload-input" type="file" name="uploads[]" multiple="multiple"><br/>
+        <input type="file" id="inputFile" name="inputFile" class="form-control" #inputFile><br/>
     </div>
     <input type="submit" class="btn btn-primary" value="Submit" [disabled]="!regForm.valid">
 </form>
