@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
 const config = require('../config/database');
 var datastore = require('@google-cloud/datastore')({
-    projectId: config.GCLOUD_PROJECT,
-    keyFilename: config.keyfile
+    projectId: config.GCLOUD_PROJECT
 });
 
 //Car Schema
@@ -31,17 +30,9 @@ const CarSchema = mongoose.Schema({
         type: Date,
         required: true
     },
-    images: [{
-        path: String
-    }],
-    mods: [{
-        description: String
-    }]
+    images: [String],
+    mods: [String]
 });
-
-
-
-
 
 const Car = module.exports = mongoose.model('Car', CarSchema);
 
@@ -59,47 +50,49 @@ module.exports.getAllCars = function(data, callback) {
 }
 
 module.exports.addCar = function(newCar, callback) {
-    var key = datastore.key(['Car']);
-    var nCar = [{
-            name: 'name',
-            value: newCar.name
-        },
-        {
-            name: 'make',
-            value: newCar.make
-        },
-        {
-            name: 'model',
-            value: newCar.model
-        },
-        {
-            name: 'year',
-            value: newCar.year
-        },
-        {
-            name: 'currentCar',
-            value: false
-        },
-        {
-            name: 'creationDate',
-            value: newCar.creationDate
-        }
-    ];
-    datastore.save({
-        key: key,
-        data: nCar
-    }, function(err) {
-        const query = datastore.createQuery('Car');
-        datastore.runQuery(query)
-            .then((results) => {
-                const cars = results[0];
-                console.log(car);
-                //cars.forEach((car) => console.log(car));
-            });
-    });
     newCar.save(callback);
 }
 
 module.exports.deleteCar = function(id, callback) {
     Car.remove({ _id: id }, callback);
 }
+
+
+//  var key = datastore.key(['Car']);
+//     var nCar = [{
+//             name: 'name',
+//             value: newCar.name
+//         },
+//         {
+//             name: 'make',
+//             value: newCar.make
+//         },
+//         {
+//             name: 'model',
+//             value: newCar.model
+//         },
+//         {
+//             name: 'year',
+//             value: newCar.year
+//         },
+//         {
+//             name: 'currentCar',
+//             value: newCar.currentCar
+//         },
+//         {
+//             name: 'creationDate',
+//             value: newCar.creationDate
+//         }
+//     ];
+//     datastore.save({
+//         key: key,
+//         data: nCar
+//     }, function(err) {
+//         const query = datastore.createQuery('Car');
+//         datastore.runQuery(query)
+//             .then((results) => {
+//                 const cars = results[0];
+//                 console.log(car);
+//                 //cars.forEach((car) => console.log(car));
+//             });
+//     });

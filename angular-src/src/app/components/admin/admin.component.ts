@@ -92,6 +92,46 @@ export class AdminComponent implements OnInit {
     });
   }
 
+  onclickChangeCurrent(i){
+    var car = this.cars[i];
+    car.currentCar = !car.currentCar;
+    this.carService.updateCar(car).subscribe(res => {
+      if (res.success){
+        this.getAllCars();
+      }
+      },
+      err => {
+        console.log(err);
+        return false;
+      });
+  }
+
+  onclickAddCarImg(i, fileInput:any){
+    this.confirmAddCarImg(i, fileInput.target.files[0]); 
+  }
+
+  confirmAddCarImg(i, inputFile)
+  {
+    var car = this.cars[i];
+    let formData = new FormData();
+    formData.append('inputFile', inputFile, inputFile.name);
+    this.uploadService.uploadFiles(formData).subscribe(data => {
+      if (data.success){
+        car.images.push(data.urls);
+        this.carService.updateCar(car).subscribe(res => {
+        if (res.success){
+          this.flashMessage.show(car.name + " has been updated", {cssClass: 'alert-success', timeout: 2000});
+          this.getAllCars();
+        }
+        },
+        err => {
+          console.log(err);
+          return false;
+        });
+      }
+    });
+  }
+
   onclickDeleteUser(i){
     var uname = this.users[i].username;
 
@@ -108,7 +148,7 @@ export class AdminComponent implements OnInit {
   }
 
   onclickDeleteCar(i){
-        var cname = this.blogs[i].name;
+        var cname = this.cars[i].name;
 
         this.modal.confirm()
             .size('sm')
@@ -121,6 +161,51 @@ export class AdminComponent implements OnInit {
             .then((result: any) => { this.confirmDeleteCar(cname, i) })
             .catch((err: any) =>  console.log('delete cancelled'));
 
+  }
+
+  onclickDeleteCarImg(i,j){
+      this.cars[i].images.splice(j,1);;
+        this.carService.updateCar(this.cars[i]).subscribe(res => {
+        if (res.success){
+          this.flashMessage.show(this.cars[i].name + " has been updated", {cssClass: 'alert-success', timeout: 2000});
+          this.getAllCars();
+        }
+        },
+        err => {
+          console.log(err);
+          return false;
+        });
+  }
+
+  modTextChange(i, e) {
+      if (e.target.value != null){
+        this.cars[i].mods.push(e.target.value);
+        this.carService.updateCar(this.cars[i]).subscribe(res => {
+        if (res.success){
+          e.target.value = '';
+          this.flashMessage.show(this.cars[i].name + " has been updated", {cssClass: 'alert-success', timeout: 2000});
+          this.getAllCars();
+        }
+        },
+        err => {
+          console.log(err);
+          return false;
+        });
+      }
+  }
+
+  onclickDeleteCarMod(i,k){
+    this.cars[i].mods.splice(k,1);;
+        this.carService.updateCar(this.cars[i]).subscribe(res => {
+        if (res.success){
+          this.flashMessage.show(this.cars[i].name + " has been updated", {cssClass: 'alert-success', timeout: 2000});
+          this.getAllCars();
+        }
+        },
+        err => {
+          console.log(err);
+          return false;
+        });
   }
 
   onclickDeleteBlog(i){
@@ -170,7 +255,7 @@ export class AdminComponent implements OnInit {
     confirmDeleteBlog(bname, i){
     this.blogService.deleteBlog(this.blogs[i]).subscribe(res => {
       if (res.success){
-        this.users.splice(i,1);
+        this.blogs.splice(i,1);
         this.flashMessage.show(bname + " has been deleted", {cssClass: 'alert-danger', timeout: 3000});
         this.getAllBlogs();
       }
@@ -184,7 +269,7 @@ export class AdminComponent implements OnInit {
   confirmDeleteCar(cname, i){
     this.carService.deleteCar(this.cars[i]).subscribe(res => {
       if (res.success){
-        this.users.splice(i,1);
+        this.cars.splice(i,1);
         this.flashMessage.show(cname + " has been deleted", {cssClass: 'alert-danger', timeout: 3000});
         this.getAllCars();
       }
@@ -198,7 +283,7 @@ export class AdminComponent implements OnInit {
   confirmDeleteProject(bname, i){
     this.projectService.deleteProject(this.projects[i]).subscribe(res => {
       if (res.success){
-        this.users.splice(i,1);
+        this.projects.splice(i,1);
         this.flashMessage.show(bname + " has been deleted", {cssClass: 'alert-danger', timeout: 3000});
         this.getAllProjects();
       }

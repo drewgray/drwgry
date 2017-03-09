@@ -5,10 +5,6 @@ export interface Car {
     year: number;
     currentCar: Boolean;
     creationDate?: Number;
-    images?: [{
-        path: String;
-    }];
-    mods?: [{
-        description: String;
-    }];
+    images?: [String];
+    mods?: [String];
 }

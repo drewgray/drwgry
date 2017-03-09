@@ -60,5 +60,27 @@ router.post('/delete', (req, res, next) => {
     });
 });
 
+//update car
+router.post('/update', (req, res, next) => {
+    Car.getCarById(req.body._id, (err, car) => {
+        if (err) throw err;
+        if (car) {
+            car.name = req.body.name;
+            car.make = req.body.make;
+            car.model = req.body.model;
+            car.year = req.body.year;
+            car.currentCar = req.body.currentCar;
+            car.mods = req.body.mods;
+            car.images = req.body.images;
+            Car.addCar(car, (err, result) => {
+                if (err) { console.log(err); }
+                res.json({ success: true });
+            });
+        } else {
+            res.json({ success: false });
+        }
+    });
+});
+
 
 module.exports = router;

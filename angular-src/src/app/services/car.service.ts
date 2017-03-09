@@ -30,4 +30,11 @@ export class CarService {
         .map(res => res.json());
   }
 
+  updateCar(car){
+    let headers = new Headers();
+      headers.append('Content-Type','application/json');
+      return this.http.post('cars/update', car, {headers: headers})
+        .map(res => res.json());
+  }
+
 }

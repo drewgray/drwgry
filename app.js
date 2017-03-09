@@ -6,12 +6,6 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const config = require('./config/database');
 
-
-var datastore = require('@google-cloud/datastore')({
-    projectId: config.GCLOUD_PROJECT,
-    keyFilename: config.keyfile
-});
-
 // Connect to DB
 mongoose.connect(config.database);
 

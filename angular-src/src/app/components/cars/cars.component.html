@@ -1,83 +1,27 @@
 <ul class="nav nav-tabs">
-    <li class="active cars"><a href="#gtr" data-toggle="tab">GTR</a></li>
-    <li class="cars"><a href="#talon" data-toggle="tab">Talon</a></li>
-    <li class="cars"><a href="#grom" data-toggle="tab">Grom</a></li>
-    <li class="cars"><a href="#evoque" data-toggle="tab">Evoque</a></li>
-    <li class="cars"><a href="#oldcars" data-toggle="tab">Previous</a></li>
+    <li class="cars" *ngFor="let car of cars; let isFirst = first" [class.active]="isFirst">
+        <a href="#{{car.name}}" data-toggle="tab">{{car.name}}</a>
+    </li>
 </ul>
 <div id="myTabContent" class="tab-content">
-    <div class="tab-pane fade active in" id="gtr">
+    <div class="tab-pane fade in" *ngFor="let car of cars; let isFirst = first" [class.active]="isFirst" id={{car.name}}>
         <br>
         <div class="row">
             <div class="col-md-8 car">
                 <carousel [interval]="interval">
-                    <slide *ngFor="let image of gtrImages">
-                        <img src={{image.url}}/>
+                    <slide *ngFor="let image of car.images">
+                        <img src={{image}}/>
+
                     </slide>
                 </carousel>
             </div>
             <div class="col-md-4 mods">
-                Mod TEXT HARE
-            </div>
-        </div>
-    </div>
-    <div class="tab-pane fade" id="talon">
-        <br>
-        <div class="row">
-            <div class="col-md-8 car">
-                <carousel [interval]="interval">
-                    <slide *ngFor="let image of talonImages">
-                        <img src={{image.url}}/>
-                    </slide>
-                </carousel>
-            </div>
-            <div class="col-md-4 mods">
-                Mod TEXT HARE
-            </div>
-        </div>
-    </div>
-    <div class="tab-pane fade" id="grom">
-        <br>
-        <div class="row">
-            <div class="col-md-8 car">
-                <carousel [interval]="interval">
-                    <slide *ngFor="let image of gromImages">
-                        <img src={{image.url}}/>
-                    </slide>
-                </carousel>
-            </div>
-            <div class="col-md-4 mods">
-                Mod TEXT HARE
-            </div>
-        </div>
-    </div>
-    <div class="tab-pane fade" id="evoque">
-        <br>
-        <div class="row">
-            <div class="col-md-8 car">
-                <carousel [interval]="interval">
-                    <slide *ngFor="let image of evoqueImages">
-                        <img src={{image.url}}/>
-                    </slide>
-                </carousel>
-            </div>
-            <div class="col-md-4 mods">
-                Mod TEXT HARE
-            </div>
-        </div>
-    </div>
-    <div class="tab-pane fade" id="oldcars">
-        <br>
-        <div class="row">
-            <div class="col-md-8 car">
-                <carousel [interval]="interval">
-                    <slide *ngFor="let image of oldImages">
-                        <img src={{image.url}}/>
-                    </slide>
-                </carousel>
-            </div>
-            <div class="col-md-4 mods">
-                Mod TEXT HARE
+                <h3>{{car.year}} {{car.make}} {{car.model}}</h3>
+                <div *ngFor="let mod of car.mods">
+                    <p>
+                        {{mod}}
+                    </p>
+                </div>
             </div>
         </div>
     </div>

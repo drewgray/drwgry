@@ -72,14 +72,27 @@
                     <td>{{car.make}}</td>
                     <td>{{car.model}}</td>
                     <td>
-                        <ul>
-                            <li>
-                            </li>
-                        </ul>
-                        <a class="btn btn-primary btn-xs">add</a>
+                        <div *ngFor="let mod of car.mods; let k = index">
+                            <p>{{mod}}
+                                <a (click)="onclickDeleteCarMod(i,k)" class="btn btn-danger btn-xs" [routerLink]="['/admin']">-</a>
+                            </p>
+                        </div>
+                        <div>
+                            <input (change)="modTextChange(i, $event)" type="text" id="myText" value="" width="30px" />
+                        </div>
                     </td>
-                    <td> <a class="btn btn-warning btn-xs">{{car.currentCar}}</a></td>
-                    <td><a class="btn btn-primary btn-xs">+img</a></td>
+                    <td>
+                        <a *ngIf="car.currentCar" (click)="onclickChangeCurrent(i)" class="btn btn-primary btn-xs">{{car.currentCar}}</a>
+                        <a *ngIf="!car.currentCar" (click)="onclickChangeCurrent(i)" class="btn btn-warning btn-xs">{{car.currentCar}}</a>
+                    </td>
+                    <td>
+                        <div *ngFor="let image of car.images; let j = index">
+                            <p>{{image}}
+                                <a (click)="onclickDeleteCarImg(i,j)" class="btn btn-danger btn-xs" [routerLink]="['/admin']">-</a>
+                            </p>
+                        </div>
+                        <input (change)="onclickAddCarImg(i,$event)" type="file" id="inputFile" name="inputFile" class="form-control" #inputFile><br/>
+                    </td>
                     <td>
                         <a (click)="onclickEditCar(i)" class="btn btn-primary btn-xs" [routerLink]="['/admin']">EDIT</a>
                         <a (click)="onclickDeleteCar(i)" class="btn btn-danger btn-xs" [routerLink]="['/admin']">DEL</a>
