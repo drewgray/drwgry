@@ -11,7 +11,7 @@ export class UploadService {
   constructor(private http:Http) { }
 
   uploadFiles(formData){
-    return this.http.post('upload/', formData)
+    return this.http.post('upload/img', formData)
     .map(res => res.json());
   }
 
