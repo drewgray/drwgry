@@ -5,13 +5,11 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class UploadService {
 
-  uploads: any[];
-  upload: any;
-
   constructor(private http:Http) { }
 
   uploadFiles(formData){
-    return this.http.post('upload/img', formData)
+    console.log(formData);
+    return this.http.post('uploads/img', formData)
     .map(res => res.json());
   }
 

@@ -65,7 +65,7 @@ app.use('/users', users);
 app.use('/cars', cars);
 app.use('/blogs', blogs);
 app.use('/projects', projects);
-app.use('/upload', uploads);
+app.use('/uploads', uploads);
 
 //Index Route
 app.get('/', (req, res) => {
