@@ -26,6 +26,10 @@ router.post('/img', function(req, res, next) {
         // store all uploads in the /uploads directory
         form.uploadDir = path.join(__dirname, '/../temp');
 
+        form.maxFieldsSize = 4 * 1024 * 1024;
+
+
+
         // every time a file has been uploaded successfully,
         // rename it to it's orignal name
         form.on('file', function(field, file) {
@@ -41,21 +45,24 @@ router.post('/img', function(req, res, next) {
 
         // once all the files have been uploaded, send a response to the client
         form.on('end', function() {
-            bucket.upload(path.join(form.uploadDir, files), function(err, gfile) {
-                if (!err) {
-                    fs.unlink(path.join(form.uploadDir, files), function(err) {});
-                    fileURLs = 'http://assets.drwgry.com/' + files;
-                    res.json({ success: true, msg: 'Images uploaded', urls: fileURLs });
-                } else {
-                    console.log(err);
-                    res.json({ success: false, msg: 'Images not uploaded', urls: fileURLs });
-                }
-            });
+            // bucket.upload(path.join(form.uploadDir, files), function(err, gfile) {
+            //     if (!err) {
+            //         fs.unlink(path.join(form.uploadDir, files), function(err) {});
+            //         fileURLs = 'http://assets.drwgry.com/' + files;
+            //         res.json({ success: true, msg: 'Images uploaded', urls: fileURLs });
+            //     } else {
+            //         console.log(err);
+            //         res.json({ success: false, msg: 'Images not uploaded', urls: fileURLs });
+            //     }
+            // });
+            fs.unlink(path.join(form.uploadDir, files), function(err) {});
+            fileURLs = 'http://assets.drwgry.com/' + files;
+            res.json({ success: true, msg: 'Images uploaded', urls: fileURLs });
         });
 
         // parse the incoming request containing the form data
         form.parse(req);
-    }, 500);
+    }, 5000);
 });
 
 //Upload document
@@ -70,6 +77,7 @@ router.post('/doc', function(req, res, next) {
 
     // store all uploads in the /uploads directory
     form.uploadDir = path.join(__dirname, '/../temp');
+    form.maxFieldsSize = 4 * 1024 * 1024;
 
     // every time a file has been uploaded successfully,
     // rename it to it's orignal name
