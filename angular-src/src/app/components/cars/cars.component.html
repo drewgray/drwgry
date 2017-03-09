@@ -1,12 +1,15 @@
 <ul class="nav nav-tabs">
     <li class="cars" *ngFor="let car of cars; let isFirst = first" [class.active]="isFirst">
-        <a href="#{{car.name}}" data-toggle="tab">{{car.name}}</a>
+        <a *ngIf="car.currentCar" href="#{{car.name}}" data-toggle="tab">{{car.name}}</a>
+    </li>
+    <li class="cars">
+        <a href="#oldcars" data-toggle="tab">Old</a>
     </li>
 </ul>
 <div id="myTabContent" class="tab-content">
     <div class="tab-pane fade in" *ngFor="let car of cars; let isFirst = first" [class.active]="isFirst" id={{car.name}}>
         <br>
-        <div class="row">
+        <div class="row" *ngIf="car.currentCar">
             <div class="col-md-8 car">
                 <carousel [interval]="interval">
                     <slide *ngFor="let image of car.images">
@@ -21,6 +24,29 @@
                     <p>
                         {{mod}}
                     </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade in" id=oldcars>
+        <div *ngFor="let car of cars;">
+            <br>
+            <div class="row" *ngIf="!car.currentCar">
+                <div class="col-md-8 car">
+                    <carousel [interval]="interval">
+                        <slide *ngFor="let image of car.images">
+                            <img src={{image}}/>
+
+                        </slide>
+                    </carousel>
+                </div>
+                <div class="col-md-4 mods">
+                    <h3>{{car.year}} {{car.make}} {{car.model}}</h3>
+                    <div *ngFor="let mod of car.mods">
+                        <p>
+                            {{mod}}
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
