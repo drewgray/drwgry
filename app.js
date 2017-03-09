@@ -61,11 +61,11 @@ app.use(passport.session());
 
 require('./config/passport')(passport);
 
-app.use('/users', users);
-app.use('/cars', cars);
-app.use('/blogs', blogs);
-app.use('/projects', projects);
-app.use('/uploads', uploads);
+app.use('./users', users);
+app.use('./cars', cars);
+app.use('./blogs', blogs);
+app.use('./projects', projects);
+app.use('./uploads', uploads);
 
 //Index Route
 app.get('/', (req, res) => {
