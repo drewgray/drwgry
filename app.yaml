@@ -2,10 +2,10 @@ runtime: nodejs
 env: flex
 #service: default
 
-skip_files:
--^node_modules$
+skip_files: 
+- ^node_modules$
 
-handlers:
+handlers: 
 - url: /.*
-script: app.js
-secure: always
+  script: app.js
+  secure: always
