@@ -14,53 +14,52 @@ var bucket = gcs.bucket(config.CLOUD_BUCKET);
 
 //Upload image
 router.post('/img', function(req, res, next) {
-    res.json({ success: true, msg: 'Images uploaded', urls: '' });
-    // setTimeout(() => {
-    //     var files;
-    //     var fileURLs;
-    //     // create an incoming form object
-    //     var form = new formidable.IncomingForm();
+    setTimeout(() => {
+        var files;
+        var fileURLs;
+        // create an incoming form object
+        var form = new formidable.IncomingForm();
 
-    //     // specify that we want to allow the user to upload multiple files in a single request
-    //     form.multiples = true;
+        // specify that we want to allow the user to upload multiple files in a single request
+        form.multiples = true;
 
-    //     // store all uploads in the /uploads directory
-    //     form.uploadDir = path.join(__dirname, '/../temp');
+        // store all uploads in the /uploads directory
+        form.uploadDir = path.join(__dirname, '/../temp');
 
-    //     form.maxFieldsSize = 4 * 1024 * 1024;
-
+        form.maxFieldsSize = 4 * 1024 * 1024;
 
 
-    //     // every time a file has been uploaded successfully,
-    //     // rename it to it's orignal name
-    //     form.on('file', function(field, file) {
-    //         var newname = Date.now() + file.name;
-    //         fs.rename(file.path, path.join(form.uploadDir, newname));
-    //         files = newname;
-    //     });
 
-    //     // log any errors that occur
-    //     form.on('error', function(err) {
-    //         console.log('An error has occured: \n' + err);
-    //     });
+        // every time a file has been uploaded successfully,
+        // rename it to it's orignal name
+        form.on('file', function(field, file) {
+            var newname = Date.now() + file.name;
+            fs.rename(file.path, path.join(form.uploadDir, newname));
+            files = newname;
+        });
 
-    //     // once all the files have been uploaded, send a response to the client
-    //     form.on('end', function() {
-    //         bucket.upload(path.join(form.uploadDir, files), function(err, gfile) {
-    //             if (!err) {
-    //                 fs.unlink(path.join(form.uploadDir, files), function(err) {});
-    //                 fileURLs = 'http://assets.drwgry.com/' + files;
-    //                 res.json({ success: true, msg: 'Images uploaded', urls: fileURLs });
-    //             } else {
-    //                 console.log(err);
-    //                 res.json({ success: false, msg: 'Images not uploaded', urls: fileURLs });
-    //             }
-    //         });
-    //     });
+        // log any errors that occur
+        form.on('error', function(err) {
+            console.log('An error has occured: \n' + err);
+        });
 
-    //     // parse the incoming request containing the form data
-    //     form.parse(req);
-    // }, 5000);
+        // once all the files have been uploaded, send a response to the client
+        form.on('end', function() {
+            bucket.upload(path.join(form.uploadDir, files), function(err, gfile) {
+                if (!err) {
+                    fs.unlink(path.join(form.uploadDir, files), function(err) {});
+                    fileURLs = 'http://assets.drwgry.com/' + files;
+                    res.json({ success: true, msg: 'Images uploaded', urls: fileURLs });
+                } else {
+                    console.log(err);
+                    res.json({ success: false, msg: 'Images not uploaded', urls: fileURLs });
+                }
+            });
+        });
+
+        // parse the incoming request containing the form data
+        form.parse(req);
+    }, 1000);
 });
 
 //Upload document
