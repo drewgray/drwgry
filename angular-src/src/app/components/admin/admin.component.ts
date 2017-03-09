@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import {FlashMessagesService} from 'angular2-flash-messages';
 import { Overlay } from 'angular2-modal';
 import { Modal } from 'angular2-modal/plugins/bootstrap';
+import {UploadService} from '../../services/upload.service';
 
 @Component({
   selector: 'app-admin',
@@ -29,7 +30,8 @@ export class AdminComponent implements OnInit {
     public modal: Modal,
     private carService:CarService,
     private blogService:BlogService,
-    private projectService:ProjectService) 
+    private projectService:ProjectService,
+    private uploadService: UploadService) 
     {
       overlay.defaultViewContainer = vcRef;
      }

@@ -23,7 +23,7 @@ router.post('/img', function(req, res, next) {
     form.multiples = true;
 
     // store all uploads in the /uploads directory
-    form.uploadDir = path.join(__dirname, '/../uploads');
+    form.uploadDir = path.join(__dirname, '/../temp');
 
     // every time a file has been uploaded successfully,
     // rename it to it's orignal name
@@ -67,7 +67,7 @@ router.post('/doc', function(req, res, next) {
     form.multiples = true;
 
     // store all uploads in the /uploads directory
-    form.uploadDir = path.join(__dirname, '/../uploads');
+    form.uploadDir = path.join(__dirname, '/../temp');
 
     // every time a file has been uploaded successfully,
     // rename it to it's orignal name
@@ -101,11 +101,26 @@ router.post('/doc', function(req, res, next) {
 });
 
 router.post('/deleteimg', function(req, res, next) {
-    res.json({ success: true, msg: 'Image deleted' });
+    bucket.file(req.body.url).delete((err, resp) => {
+        if (!err) {
+            res.json({ success: true, msg: 'Image deleted' });
+        } else {
+            console.log(err);
+            res.json({ success: false, msg: 'error' });
+        }
+    });
+
 });
 
 router.post('/deletedoc', function(req, res, next) {
-    res.json({ success: true, msg: 'Document deleted' });
+    bucket.file(req.body.url).delete((err, resp) => {
+        if (!err) {
+            res.json({ success: true, msg: 'Document deleted' });
+        } else {
+            console.log(err);
+            res.json({ success: false, msg: 'error' });
+        }
+    });
 });
 
 
