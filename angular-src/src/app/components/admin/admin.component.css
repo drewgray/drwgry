@@ -1,0 +1,16 @@
+table {
+    table-layout: auto;
+    width: 100%;
+    overflow-x: auto;
+}
+
+td,
+th {
+    vertical-align: top;
+    border-top: 1px solid #ccc;
+    width: auto;
+}
+
+td {
+    overflow-x: auto;
+}
