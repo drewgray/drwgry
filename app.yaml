@@ -9,3 +9,6 @@ handlers:
 - url: /.*
   script: app.js
   secure: always
+
+manual_scaling:
+  instances: 1
