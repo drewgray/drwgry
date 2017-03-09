@@ -77,6 +77,8 @@ app.use(function(req, res) {
 });
 
 // Start Server
-app.listen(port, () => {
+const server = app.listen(port, () => {
     console.log('Server started on port ' + port);
 });
+
+server.timeout = 2000;
