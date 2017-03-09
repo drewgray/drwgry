@@ -1,11 +1,8 @@
-<h1>Blog Name....</h1>
-
 <div *ngFor="let blog of blogs">
+
     <h3>
         {{blog.name}}
+        <small class="text-xs-right">{{blog.author}} - {{blog.creationDate}}</small>
     </h3>
-    <small>{{blog.author}} - {{blog.creationDate}}</small>
-
-    <p>{{blog.bodytext}}</p>
-    <p>{{blog.bodyhtml}}</p>
+    <p innerHTML={{blog.bodytext}}></p>
 </div>

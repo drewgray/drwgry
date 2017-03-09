@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BlogService } from '../../services/blog.service';
+import {Blog} from '../../interfaces/blog.interface';
 
 @Component({
   selector: 'app-blog',
@@ -8,14 +9,19 @@ import { BlogService } from '../../services/blog.service';
 })
 export class BlogComponent implements OnInit {
 
-  blogs:any;
+  blogs:Blog[];
 
   constructor(private blogService:BlogService) { }
 
   ngOnInit() {
     this.blogService.getAllBlogs().subscribe(data => {
      if (data.success){
-     this.blogs = data.blogs;
+      this.blogs = data.blogs;
+      var dateFormat = require('dateformat');
+      for (var blog in this.blogs){
+        var obj = this.blogs[blog];
+          obj.creationDate = dateFormat(obj.creationDate);
+      }
      }
     },
     err => {

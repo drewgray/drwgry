@@ -29,10 +29,9 @@ export class AddBlogComponent implements OnInit {
   ngOnInit() {
     this.blog = {
       name: '',
-      bodyhtml: '',
       bodytext: '',
       tags: new Array<string>(),
-      createDate: Date.now()
+      creationDate: Date.now()
     }
 
     this.authService.getProfile().subscribe(profile => {
@@ -47,10 +46,9 @@ export class AddBlogComponent implements OnInit {
   onAddSubmit(model: Blog, isValid: boolean){
     const blog = {
       name: model.name,
-      bodyhtml: model.bodytext,
       bodytext: model.bodytext,
       tags: [model.tags],
-      createDate: Date.now(),
+      creationDate: Date.now(),
       author: this.user.username
     }
 

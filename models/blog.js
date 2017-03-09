@@ -11,10 +11,6 @@ const BlogSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    bodyhtml: {
-        type: String,
-        required: true
-    },
     creationDate: {
         type: Date,
         required: true

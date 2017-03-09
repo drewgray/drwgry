@@ -10,7 +10,6 @@ router.post('/add', (req, res, next) => {
     let newBlog = new Blog({
         name: req.body.name,
         bodytext: req.body.bodytext,
-        bodyhtml: req.body.bodyhtml,
         creationDate: Date.now(),
         tags: req.body.tags,
         author: req.body.author

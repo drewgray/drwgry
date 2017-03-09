@@ -8,7 +8,7 @@
     </div>
     <div class="form-group">
         <label>Body</label>
-        <input type="text" [(ngModel)]="blog.bodytext" name="bodytext" class="form-control" #bodytext="ngModel" required>
+        <textarea type="text" [(ngModel)]="blog.bodytext" name="bodytext" class="form-control" rows="10" #bodytext="ngModel" required> </textarea>
         <small *ngIf='!bodytext.valid' class="text-danger">required</small>
     </div>
     <div class="form-group">
