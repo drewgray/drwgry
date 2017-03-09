@@ -8,7 +8,6 @@ export class UploadService {
   constructor(private http:Http) { }
 
   uploadFiles(formData){
-    console.log(formData);
     return this.http.post('uploads/img', formData)
     .map(res => res.json());
   }
