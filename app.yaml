@@ -11,4 +11,4 @@ handlers:
   secure: always
 
 manual_scaling:
-  instances: 1
+  instances: 2
