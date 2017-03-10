@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+const compression = require('compression');
 const cors = require('cors');
 const passport = require('passport');
 const mongoose = require('mongoose');
@@ -14,13 +15,15 @@ mongoose.connection.on('connected', () => {
     console.log('Connected to database ' + config.database);
 });
 
-// On error
+// On errors
 mongoose.connection.on('error', (err) => {
     console.log('Database error: ' + err);
 });
 
 //Initialize express
 const app = express();
+
+app.use(compression());
 
 //user route
 const users = require('./routes/users');
