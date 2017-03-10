@@ -9,11 +9,7 @@
         "test": "ng test",
         "pree2e": "webdriver-manager update --standalone false --gecko false",
         "e2e": "protractor",
-        "clean": "rm -rf ../public",
-        "build": "npm run clean && tsc -p tsconfig.json",
-        "build_prod": "npm run clean && ng build && npm run minify && npm run gz",
-        "minify": "uglifyjs ../public/inline.bundle.js --screw-ie8 --compress --mangle --output ../public/inline.bundle.min.js && uglifyjs ../public/main.bundle.js --screw-ie8 --compress --mangle --output ../public/main.bundle.min.js && uglifyjs ../public/polyfills.bundle.js --screw-ie8 --compress --mangle --output ../public/polyfills.bundle.min.js && uglifyjs ../public/styles.bundle.js --screw-ie8 --compress --mangle --output ../public/styles.bundle.min.js && uglifyjs ../public/vendor.bundle.js --screw-ie8 --compress --mangle --output ../public/vendor.bundle.min.js",
-        "gz": "gzip ../public/inline.bundle.min.js && gzip ../public/main.bundle.min.js && gzip ../public/polyfills.bundle.min.js && gzip ../public/styles.bundle.min.js && gzip ../public/vendor.bundle.min.js"
+        "clean": "rm -rf ../public"
     },
     "private": true,
     "dependencies": {

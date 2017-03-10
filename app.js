@@ -61,11 +61,11 @@ app.use('/blogs', blogs);
 app.use('/projects', projects);
 app.use('/uploads', uploads);
 
-app.get('*.bundle.js', function(req, res, next) {
-    req.url = req.url + '.gz';
-    res.set('Content-Encoding', 'gzip');
-    next();
-});
+// app.get('*.bundle.js', function(req, res, next) {
+//     req.url = req.url + '.gz';
+//     res.set('Content-Encoding', 'gzip');
+//     next();
+// });
 
 //Index Route
 app.get('/', (req, res) => {

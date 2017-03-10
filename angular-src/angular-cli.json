@@ -11,6 +11,7 @@
         ],
         "index": "index.html",
         "main": "main.ts",
+        "compress": true,
         "polyfills": "polyfills.ts",
         "test": "test.ts",
         "tsconfig": "tsconfig.json",
