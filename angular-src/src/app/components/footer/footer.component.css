@@ -27,3 +27,7 @@ img {
     margin-bottom: 10px;
     background-color: white;
 }
+
+img:hover {
+    opacity: 1;
+}
