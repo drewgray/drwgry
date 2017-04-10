@@ -1,12 +1,22 @@
 footer {
-    max-height: 5vh
+    max-height: 5vh;
+    position: fixed;
+    width: 100%;
+    bottom: 5vh;
 }
 
 .container {
-    min-height: 75vh;
+    padding-top: 10vh;
+    height: 80vh;
 }
 
 html,
 body {
     font-family: Raleway;
+    overflow-y: auto;
+}
+
+app-navbar {
+    position: fixed;
+    width: 100%;
 }

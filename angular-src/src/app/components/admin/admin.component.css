@@ -1,16 +1,11 @@
 table {
     table-layout: fixed;
     width: 100%;
-    overflow-x: auto;
+    overflow-x: scroll;
 }
 
 td,
 th {
     vertical-align: top;
     border-top: 1px solid #ccc;
-    width: auto;
-}
-
-td {
-    overflow-x: auto;
 }
