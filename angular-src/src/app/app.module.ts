@@ -22,6 +22,7 @@ import { BlogComponent } from './components/blog/blog.component';
 import { AddCarComponent } from './components/add-car/add-car.component';
 import { AddProjectComponent } from './components/add-project/add-project.component';
 import { AddBlogComponent } from './components/add-blog/add-blog.component';
+import { PetsComponent } from './components/pets/pets.component';
 
 import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
@@ -41,6 +42,7 @@ import {AuthGuard} from './guards/auth.guard';
 import {AdminGuard} from './guards/admin.guard';
 
 
+
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'register', component: RegisterComponent},
@@ -54,6 +56,7 @@ const appRoutes: Routes = [
   {path: 'resume', component: ResumeComponent},
   {path: 'cars', component: CarsComponent},
   {path: 'blog', component: BlogComponent},
+  {path: 'pets', component: PetsComponent},
   {path: 'addcar', component: AddCarComponent, canActivate:[AuthGuard, AdminGuard]},
   {path: 'addproject', component: AddProjectComponent, canActivate:[AuthGuard, AdminGuard]},
   {path: 'addblogpost', component: AddBlogComponent, canActivate:[AuthGuard, AdminGuard]}
@@ -78,7 +81,8 @@ const appRoutes: Routes = [
     BlogComponent,
     AddCarComponent,
     AddProjectComponent,
-    AddBlogComponent
+    AddBlogComponent,
+    PetsComponent
   ],
   imports: [
     BrowserModule,
