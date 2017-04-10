@@ -2,12 +2,14 @@ footer {
     max-height: 5vh;
     position: fixed;
     width: 100%;
-    bottom: 5vh;
+    bottom: 7vh;
+    z-index: 100;
 }
 
 .container {
     padding-top: 10vh;
-    height: 80vh;
+    /*height: 80vh;*/
+    z-index: 1;
 }
 
 html,
@@ -19,4 +21,5 @@ body {
 app-navbar {
     position: fixed;
     width: 100%;
+    z-index: 100;
 }
