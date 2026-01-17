@@ -13,9 +13,9 @@
 
     body {
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      background: #0a0a0b;
       min-height: 100vh;
       overflow: hidden;
+      background: #0d1321;
     }
 
     canvas {
@@ -33,7 +33,7 @@
       font-weight: 400;
       letter-spacing: 0.25em;
       text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.4);
+      color: rgba(255, 255, 255, 0.5);
       z-index: 10;
     }
   </style>
@@ -52,102 +52,245 @@
       canvas.width = width;
       canvas.height = height;
 
+      // Mouse tracking for moon
       let mouseX = width / 2;
       let mouseY = height / 2;
+      let moonX = width / 2;
+      let moonY = height * 0.15;
 
-      // Particles array
-      const particles = [];
-      const particleCount = 100;
+      // Stars
+      const stars = [];
+      const starCount = 150;
 
-      // Create particles
-      for (let i = 0; i < particleCount; i++) {
-        particles.push({
-          x: Math.random() * width,
-          y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 0.5,
-          vy: (Math.random() - 0.5) * 0.5,
-          radius: Math.random() * 2 + 1
+      function initStars() {
+        stars.length = 0;
+        for (let i = 0; i < starCount; i++) {
+          stars.push({
+            x: Math.random() * width,
+            y: Math.random() * height * 0.7,
+            radius: Math.random() * 1.5 + 0.5,
+            baseAlpha: Math.random() * 0.5 + 0.3,
+            alpha: 0,
+            twinkleSpeed: Math.random() * 0.02 + 0.01,
+            twinkleOffset: Math.random() * Math.PI * 2
+          });
+        }
+      }
+      initStars();
+
+      // Shooting stars
+      const shootingStars = [];
+
+      function createShootingStar(x, y) {
+        const angle = Math.PI / 4 + (Math.random() - 0.5) * 0.5;
+        shootingStars.push({
+          x: x,
+          y: y,
+          vx: Math.cos(angle) * 10,
+          vy: Math.sin(angle) * 10,
+          length: 100 + Math.random() * 50,
+          alpha: 1
         });
       }
 
-      function animate() {
-        // Clear with fade
-        ctx.fillStyle = 'rgba(10, 10, 11, 0.2)';
-        ctx.fillRect(0, 0, width, height);
+      // Generate valley mountains - rising on left and right, low in center
+      function generateValleyMountain(side, seed, baseColor) {
+        const points = [];
+        const segments = 100;
 
-        // Update and draw particles
-        for (let i = 0; i < particles.length; i++) {
-          const p = particles[i];
+        for (let i = 0; i <= segments; i++) {
+          const t = i / segments;
+          const x = t * width;
 
-          // Mouse repulsion
-          const dx = p.x - mouseX;
-          const dy = p.y - mouseY;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < 150 && dist > 0) {
-            const force = (150 - dist) / 150;
-            p.vx += (dx / dist) * force * 0.5;
-            p.vy += (dy / dist) * force * 0.5;
+          // Valley shape - high on edges, low in center
+          let valleyShape;
+          if (side === 'left') {
+            // Left mountain - starts high, descends toward center
+            valleyShape = Math.pow(1 - t, 1.5);
+          } else if (side === 'right') {
+            // Right mountain - low at left, rises toward right
+            valleyShape = Math.pow(t, 1.5);
+          } else {
+            // Background - gentle curve across
+            valleyShape = 0.3 + 0.2 * Math.cos(t * Math.PI);
           }
 
-          // Apply velocity
-          p.x += p.vx;
-          p.y += p.vy;
+          // Base height from valley shape
+          let y = height - valleyShape * height * 0.8;
 
-          // Friction
-          p.vx *= 0.98;
-          p.vy *= 0.98;
+          // Add organic variation
+          const noise1 = Math.sin(t * 8 + seed) * 0.08;
+          const noise2 = Math.sin(t * 15 + seed * 2.3) * 0.04;
+          const noise3 = Math.sin(t * 25 + seed * 1.7) * 0.02;
 
-          // Bounce off edges
-          if (p.x < 0 || p.x > width) p.vx *= -1;
-          if (p.y < 0 || p.y > height) p.vy *= -1;
+          y -= (noise1 + noise2 + noise3) * height * valleyShape;
 
-          // Keep in bounds
-          p.x = Math.max(0, Math.min(width, p.x));
-          p.y = Math.max(0, Math.min(height, p.y));
-
-          // Draw particle
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-          ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
-          ctx.fill();
+          points.push({ x, y });
         }
 
-        // Draw connections
-        for (let i = 0; i < particles.length; i++) {
-          for (let j = i + 1; j < particles.length; j++) {
-            const dx = particles[i].x - particles[j].x;
-            const dy = particles[i].y - particles[j].y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
+        return points;
+      }
 
-            if (dist < 100) {
-              ctx.beginPath();
-              ctx.moveTo(particles[i].x, particles[i].y);
-              ctx.lineTo(particles[j].x, particles[j].y);
-              ctx.strokeStyle = `rgba(255, 255, 255, ${0.2 * (1 - dist / 100)})`;
-              ctx.stroke();
+      // Draw mountain silhouette
+      function drawMountain(points, color) {
+        if (points.length < 2) return;
+
+        ctx.beginPath();
+        ctx.moveTo(0, height);
+
+        for (let i = 0; i < points.length - 1; i++) {
+          const p0 = points[i];
+          const p1 = points[i + 1];
+          const midX = (p0.x + p1.x) / 2;
+          const midY = (p0.y + p1.y) / 2;
+          ctx.quadraticCurveTo(p0.x, p0.y, midX, midY);
+        }
+
+        ctx.lineTo(width, height);
+        ctx.closePath();
+        ctx.fillStyle = color;
+        ctx.fill();
+      }
+
+      // Pre-generate mountain shapes
+      let mountains = [];
+
+      function initMountains() {
+        mountains = [
+          { points: generateValleyMountain('back', 1.5, null), color: '#1a2a3d' },
+          { points: generateValleyMountain('left', 2.8, null), color: '#111c2c' },
+          { points: generateValleyMountain('right', 4.2, null), color: '#0e1824' },
+        ];
+      }
+      initMountains();
+
+      // Check if point is in sky (above all mountains)
+      function isInSky(x, y) {
+        for (const mountain of mountains) {
+          const segmentWidth = width / (mountain.points.length - 1);
+          const index = Math.floor(x / segmentWidth);
+          const nextIndex = Math.min(index + 1, mountain.points.length - 1);
+
+          const p0 = mountain.points[index];
+          const p1 = mountain.points[nextIndex];
+
+          if (p0 && p1) {
+            const t = (x - p0.x) / (p1.x - p0.x || 1);
+            const mountainY = p0.y + (p1.y - p0.y) * t;
+
+            if (y > mountainY) {
+              return false;
             }
           }
         }
+        return true;
+      }
 
-        // Draw cursor glow
-        const gradient = ctx.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, 100);
-        gradient.addColorStop(0, 'rgba(100, 150, 255, 0.15)');
-        gradient.addColorStop(1, 'rgba(100, 150, 255, 0)');
+      function drawStars(time) {
+        stars.forEach(star => {
+          star.alpha = star.baseAlpha * (0.5 + 0.5 * Math.sin(time * star.twinkleSpeed + star.twinkleOffset));
+          ctx.beginPath();
+          ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
+          ctx.fill();
+        });
+      }
+
+      function drawShootingStars() {
+        for (let i = shootingStars.length - 1; i >= 0; i--) {
+          const s = shootingStars[i];
+
+          const gradient = ctx.createLinearGradient(
+            s.x, s.y,
+            s.x - s.vx * s.length / 10, s.y - s.vy * s.length / 10
+          );
+          gradient.addColorStop(0, `rgba(255, 255, 255, ${s.alpha})`);
+          gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+          ctx.beginPath();
+          ctx.moveTo(s.x, s.y);
+          ctx.lineTo(s.x - s.vx * s.length / 10, s.y - s.vy * s.length / 10);
+          ctx.strokeStyle = gradient;
+          ctx.lineWidth = 2;
+          ctx.lineCap = 'round';
+          ctx.stroke();
+
+          s.x += s.vx;
+          s.y += s.vy;
+          s.alpha *= 0.97;
+
+          if (s.x > width + 100 || s.y > height || s.alpha < 0.01) {
+            shootingStars.splice(i, 1);
+          }
+        }
+      }
+
+      function updateMoon() {
+        // Moon follows mouse with subtle movement, constrained to upper portion
+        const targetX = width * 0.3 + (mouseX / width) * width * 0.4;
+        const targetY = height * 0.08 + (mouseY / height) * height * 0.2;
+
+        moonX += (targetX - moonX) * 0.02;
+        moonY += (targetY - moonY) * 0.02;
+      }
+
+      function drawMoon() {
+        const moonRadius = Math.min(width, height) * 0.025;
+
+        const glowGradient = ctx.createRadialGradient(
+          moonX, moonY, moonRadius * 0.5,
+          moonX, moonY, moonRadius * 8
+        );
+        glowGradient.addColorStop(0, 'rgba(255, 255, 240, 0.2)');
+        glowGradient.addColorStop(0.3, 'rgba(255, 255, 240, 0.08)');
+        glowGradient.addColorStop(1, 'rgba(255, 255, 240, 0)');
+
         ctx.beginPath();
-        ctx.arc(mouseX, mouseY, 100, 0, Math.PI * 2);
-        ctx.fillStyle = gradient;
+        ctx.arc(moonX, moonY, moonRadius * 8, 0, Math.PI * 2);
+        ctx.fillStyle = glowGradient;
         ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(moonX, moonY, moonRadius, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 255, 245, 0.9)';
+        ctx.fill();
+      }
+
+      function drawSky() {
+        const gradient = ctx.createLinearGradient(0, 0, 0, height);
+        gradient.addColorStop(0, '#070b12');
+        gradient.addColorStop(0.4, '#101a28');
+        gradient.addColorStop(0.7, '#1a2d45');
+        gradient.addColorStop(1, '#253a55');
+
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, width, height);
+      }
+
+      let time = 0;
+
+      function animate() {
+        time++;
+
+        updateMoon();
+        drawSky();
+        drawStars(time);
+        drawMoon();
+        drawShootingStars();
+
+        // Draw mountains (static)
+        mountains.forEach(m => drawMountain(m.points, m.color));
 
         requestAnimationFrame(animate);
       }
 
-      // Event listeners
       window.addEventListener('resize', function() {
         width = window.innerWidth;
         height = window.innerHeight;
         canvas.width = width;
         canvas.height = height;
+        initMountains();
+        initStars();
       });
 
       document.addEventListener('mousemove', function(e) {
@@ -161,25 +304,19 @@
       });
 
       document.addEventListener('click', function(e) {
-        // Add burst of particles on click
-        for (let i = 0; i < 5; i++) {
-          const angle = Math.random() * Math.PI * 2;
-          const speed = Math.random() * 3 + 2;
-          particles.push({
-            x: e.clientX,
-            y: e.clientY,
-            vx: Math.cos(angle) * speed,
-            vy: Math.sin(angle) * speed,
-            radius: Math.random() * 2 + 1
-          });
-        }
-        // Remove old particles to keep count reasonable
-        while (particles.length > 200) {
-          particles.shift();
+        // Only create shooting star if clicking on sky
+        if (isInSky(e.clientX, e.clientY)) {
+          createShootingStar(e.clientX, e.clientY);
         }
       });
 
-      // Start animation
+      document.addEventListener('touchstart', function(e) {
+        const touch = e.touches[0];
+        if (isInSky(touch.clientX, touch.clientY)) {
+          createShootingStar(touch.clientX, touch.clientY);
+        }
+      });
+
       animate();
     })();
   </script>
