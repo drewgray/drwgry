@@ -6,105 +6,122 @@
 \usepackage[hidelinks]{hyperref}
 \usepackage{geometry}
 \usepackage{xcolor}
+\usepackage{fontawesome5}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
 
 % Margins
-\geometry{left=0.6in, top=0.6in, right=0.6in, bottom=0.6in}
+\geometry{left=0.55in, top=0.4in, right=0.55in, bottom=0.4in}
 
 % Colors
-\definecolor{darkblue}{RGB}{0, 77, 153}
-\definecolor{darkgray}{RGB}{60, 60, 60}
+\definecolor{accent}{RGB}{45, 65, 95}
+\definecolor{lightgray}{RGB}{100, 100, 100}
+
+% Remove page numbers
+\pagestyle{empty}
 
 % Section Formatting
-\titleformat{\section}{\large\bfseries\color{darkblue}\uppercase}{}{0em}{}[\titlerule]
-\titlespacing*{\section}{0pt}{12pt}{8pt}
+\titleformat{\section}{\normalsize\bfseries\color{accent}\uppercase}{}{0em}{}[\color{accent}\titlerule]
+\titlespacing*{\section}{0pt}{10pt}{6pt}
+
+% Tighter lists
+\setlist[itemize]{nosep, leftmargin=0.15in, label={}, topsep=0pt, partopsep=0pt}
 
 % Custom Commands
-\newcommand{\resumeItem}[1]{
-  \item\small{#1}
-}
+\newcommand{\resumeItem}[1]{\item\small{#1}\vspace{-2pt}}
 
 \newcommand{\resumeSubheading}[4]{
-  \vspace{-1pt}\item
-    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
-      \textbf{#1} & \textbf{#2} \\
-      \textit{\small#3} & \textit{\small #4} \\
-    \end{tabular*}\vspace{-5pt}
+  \vspace{2pt}
+  \item
+    \begin{tabular*}{\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & \textbf{\small #2} \\
+      \textit{\small\color{lightgray}#3} & \textit{\small\color{lightgray}#4} \\
+    \end{tabular*}\vspace{-4pt}
 }
-
-\renewcommand{\labelitemi}{$\vcenter{\hbox{\tiny$\bullet$}}$}
 
 \begin{document}
 
 %----------HEADER----------
 \begin{center}
-    {\Huge \textbf{DREW GRAY}} \\ \vspace{4pt}
-    {\Large \textbf{\color{darkgray}POWER TRADER \& MARKET STRATEGIST}} \\ \vspace{4pt}
-    \small Bentonville, AR $|$ [Phone] $|$ [Email] $|$ [LinkedIn] \\ \vspace{4pt}
-    \textbf{Grid Physics $|$ Algorithmic Trading $|$ Congestion Analysis}
+    {\LARGE \textbf{Drew Gray}} \\[6pt]
+    \small
+    \faMapMarker*\hspace{2pt}Bentonville, AR \hspace{8pt}
+    \faPhone*\hspace{2pt}(501) 276-0927 \hspace{8pt}
+    \faEnvelope\hspace{2pt}drewgray@gmail.com \hspace{8pt}
+    \faLinkedin\hspace{2pt}\href{https://www.linkedin.com/in/drew-gray-b09ba426}{LinkedIn}
 \end{center}
 
+\vspace{-8pt}
+
 %----------SUMMARY----------
-\vspace{6pt}
-\small{Accomplished Energy Trader and Electrical Engineer with a unique ``glass box'' understanding of US power markets. Leverages 15+ years of experience designing ISO market clearing engines (SCED/SCUC) to identify pricing inefficiencies and execute high-value trading strategies. Proven success managing a 2.5GWh BESS portfolio to \$100M+ in annual revenue. Expert in bridging the gap between grid topology, nodal constraints, and financial trading strategies across CAISO, ERCOT, and PJM.}
+\section{Summary}
+\small{Energy trader with a unique ``glass box'' understanding of US power markets from 15+ years designing the SCED/SCUC optimization engines that ISOs use to clear markets and set prices. Track record of \$38M+ personal trading P\&L. Built automated bidding systems from scratch. Expert in bridging grid physics, nodal constraints, and quantitative trading across all major US ISOs.}
 
 %----------SKILLS----------
-\section{Trading \& Technical Competencies}
-\begin{itemize}[leftmargin=0.15in, label={}]
-    \small{\item{
-     \textbf{Markets:} CAISO, ERCOT, PJM, SPP, MISO, ISO-NE, NYISO \\
-     \textbf{Trading Strategies:} FTRs/CRRs, Virtuals, Energy Arbitrage, Structured Swaps, Basis Hedging (ICE/Nodal) \\
-     \textbf{Quantitative \& Programming:} Python, SQL, C\#, C++, AIMMS, Java \\
-     \textbf{Grid Systems Expertise:} SCED (Security Constrained Economic Dispatch), SCUC (Unit Commitment), FERC 841/831 Compliance
-    }}
-\end{itemize}
+\section{Core Competencies}
+\small{
+\textbf{Markets:} CAISO, ERCOT, PJM, SPP, MISO, ISO-NE, NYISO \hfill \textbf{Programming:} Python, SQL, C\#, C++, AIMMS, Java \\
+\textbf{Strategies:} Energy Arbitrage, Basis Hedging (ICE/Nodal), Structured Swaps, FTRs/CRRs, Virtuals \\
+\textbf{Grid Systems:} SCED, SCUC, LMP Pricing Mechanics, Congestion Analysis, FERC 841/831 Compliance
+}
 
 %----------EXPERIENCE----------
-\section{Professional Experience}
-\begin{itemize}[leftmargin=0.15in, label={}]
+\section{Experience}
+
+\begin{itemize}[leftmargin=0in]
 
   \resumeSubheading
-      {REV RENEWABLES}{Bentonville, AR}
-      {Head of Trading, West}{08/2022 -- 01/2026}
-      \resumeItem{Managed commercial strategy and execution for a $\sim$750MW / $\sim$2.5GWh operating BESS portfolio in CAISO, generating $\sim$\$100M in annual revenue.}
-      \resumeItem{Executed hedging strategies to manage basis risk and lock in volatility premiums, utilizing exchange-traded products on ICE and Nodal for both short and long-term positions.}
-      \resumeItem{Originated and negotiated structured energy swaps to optimize the risk profile of both contracted and merchant assets.}
-      \resumeItem{Directed forward-planning strategies, analyzing nodal congestion and transmission constraints to guide capital deployment in high-value locations across the US.}
+      {REV Renewables}{Bentonville, AR}
+      {Head of Trading, West}{Aug 2022 -- Jan 2026}
+  \begin{itemize}
+      \resumeItem{Led commercial strategy for 750MW / 2.5GWh BESS portfolio in CAISO, generating \$100M+ annual revenue.}
+      \resumeItem{Generated \$38M+ personal trading P\&L via ICE hedging and directional positions (\$7.5M in '23, \$1M in '24, \$15M in '25, plus \$15M unrealized on '26-'27 forwards).}
+      \resumeItem{Built automated bidding systems integrating price forecasting, congestion modeling, and bid optimization for DA/RT markets.}
+      \resumeItem{Originated structured swaps; directed congestion analysis to guide capital deployment across the US.}
+  \end{itemize}
 
   \resumeSubheading
-      {EDF RENEWABLES}{Bentonville, AR}
-      {Associate Director, Solar \& Storage Product Mgmt}{08/2020 -- 08/2022}
-      \resumeItem{Designed and managed algorithmic bidding strategies for energy storage assets, optimizing for ancillary services and energy arbitrage revenue.}
-      \resumeItem{Led market strategy for North American assets, ensuring commercial optimization within evolving ISO/RTO market rules.}
-      \resumeItem{Partnered with Power Origination and Capital Markets to value projects based on deep fundamental analysis of future grid conditions.}
+      {EDF Renewables}{Bentonville, AR}
+      {Associate Director, Solar \& Storage Product Management}{Aug 2020 -- Aug 2022}
+  \begin{itemize}
+      \resumeItem{Built algorithmic bidding platform for BESS assets---price forecasting, ancillary services co-optimization, arbitrage execution.}
+      \resumeItem{Led cross-market strategy across CAISO, ERCOT, and PJM; collaborated with regional traders on dispatch optimization.}
+      \resumeItem{Partnered with Origination and Capital Markets to value projects via fundamental grid and congestion analysis.}
+  \end{itemize}
 
   \resumeSubheading
-      {WALMART}{Bentonville, AR}
-      {Senior Manager II, Renewable Energy Origination}{05/2019 -- 08/2020}
-      \resumeItem{Led procurement of over 1 TWh of renewable energy via VPPAs and other structured instruments.}
-      \resumeItem{Coded in-house optimization tools for behind-the-meter assets, maximizing ROI across a 4,000+ site portfolio by analyzing tariff structures and load profiles.}
-      \resumeItem{Collaborated with Texas Retail Energy to refine risk management systems for wholesale market exposure across ERCOT, PJM, and NYISO.}
+      {Walmart}{Bentonville, AR}
+      {Senior Manager II, Renewable Energy Origination}{May 2019 -- Aug 2020}
+  \begin{itemize}
+      \resumeItem{Procured 1+ TWh renewable energy via VPPAs; built optimization tools for 4,000+ site BTM portfolio.}
+      \resumeItem{Collaborated with Texas Retail Energy on wholesale risk management across ERCOT, PJM, and NYISO.}
+  \end{itemize}
 
   \resumeSubheading
-      {GE GRID SOLUTIONS / ALSTOM GRID}{Redmond, WA}
-      {Senior Market Systems Project Engineer}{06/2014 -- 05/2019}
-      \resumeItem{\textbf{The ``Edge'':} Lead developer for the actual optimization software (SCED, SCUC) used by ISOs to clear the market. Deep knowledge of how constraints bind and set marginal prices.}
-      \resumeItem{Redesigned market management systems for SPP, MISO, PJM, and ISO-NE to comply with FERC orders, giving an insider view of market protocols.}
-      \resumeItem{Implemented grid optimization solutions that balance operational reliability with least-cost dispatch.}
+      {GE Grid Solutions / Alstom Grid}{Redmond, WA}
+      {Senior Market Systems Project Engineer}{Jun 2014 -- May 2019}
+  \begin{itemize}
+      \resumeItem{\textbf{The Edge:} Lead developer for SCED/SCUC optimization software that ISOs use to clear markets. Intimate knowledge of how constraints bind, shadow prices form, and LMPs are calculated.}
+      \resumeItem{Primary focus on SPP; also delivered market systems for PJM, ISO-NE, MISO, and Transpower (New Zealand).}
+      \resumeItem{Redesigned systems for FERC compliance---insider-level understanding of market protocols and pricing mechanics.}
+  \end{itemize}
 
   \resumeSubheading
-      {SOUTHWEST POWER POOL (SPP)}{Little Rock, AR}
-      {Senior Engineer}{01/2008 -- 05/2014}
-      \resumeItem{Key player in the design and testing of the Integrated Marketplace (Day-Ahead and Real-Time), ensuring the clearing engine produced mathematically feasible and optimal pricing.}
-      \resumeItem{Developed applications to visualize market results and diagnose pricing anomalies—skills directly transferable to identifying trading opportunities.}
+      {Southwest Power Pool (SPP)}{Little Rock, AR}
+      {Senior Engineer}{Jan 2008 -- May 2014}
+  \begin{itemize}
+      \resumeItem{Key contributor to design and testing of the Integrated Marketplace (DA/RT), ensuring mathematically optimal pricing.}
+      \resumeItem{Built applications to visualize market results and diagnose pricing anomalies---directly transferable to identifying alpha.}
+  \end{itemize}
 
 \end{itemize}
 
 %----------EDUCATION----------
 \section{Education}
-\begin{itemize}[leftmargin=0.15in, label={}]
+\begin{itemize}[leftmargin=0in]
   \resumeSubheading
       {University of Arkansas}{Fayetteville, AR}
-      {Bachelor of Science in Electrical Engineering}{December 2007}
+      {B.S. Electrical Engineering}{Dec 2007}
 \end{itemize}
 
 \end{document}
