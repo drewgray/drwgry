@@ -1,0 +1,110 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{geometry}
+\usepackage{xcolor}
+
+% Margins
+\geometry{left=0.6in, top=0.6in, right=0.6in, bottom=0.6in}
+
+% Colors
+\definecolor{darkblue}{RGB}{0, 77, 153}
+\definecolor{darkgray}{RGB}{60, 60, 60}
+
+% Section Formatting
+\titleformat{\section}{\large\bfseries\color{darkblue}\uppercase}{}{0em}{}[\titlerule]
+\titlespacing*{\section}{0pt}{12pt}{8pt}
+
+% Custom Commands
+\newcommand{\resumeItem}[1]{
+  \item\small{#1}
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-1pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & \textbf{#2} \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-5pt}
+}
+
+\renewcommand{\labelitemi}{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\begin{document}
+
+%----------HEADER----------
+\begin{center}
+    {\Huge \textbf{DREW GRAY}} \\ \vspace{4pt}
+    {\Large \textbf{\color{darkgray}POWER TRADER \& MARKET STRATEGIST}} \\ \vspace{4pt}
+    \small Bentonville, AR $|$ [Phone] $|$ [Email] $|$ [LinkedIn] \\ \vspace{4pt}
+    \textbf{Grid Physics $|$ Algorithmic Trading $|$ Congestion Analysis}
+\end{center}
+
+%----------SUMMARY----------
+\vspace{6pt}
+\small{Accomplished Energy Trader and Electrical Engineer with a unique ``glass box'' understanding of US power markets. Leverages 15+ years of experience designing ISO market clearing engines (SCED/SCUC) to identify pricing inefficiencies and execute high-value trading strategies. Proven success managing a 2.5GWh BESS portfolio to \$100M+ in annual revenue. Expert in bridging the gap between grid topology, nodal constraints, and financial trading strategies across CAISO, ERCOT, and PJM.}
+
+%----------SKILLS----------
+\section{Trading \& Technical Competencies}
+\begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Markets:} CAISO, ERCOT, PJM, SPP, MISO, ISO-NE, NYISO \\
+     \textbf{Trading Strategies:} FTRs/CRRs, Virtuals, Energy Arbitrage, Structured Swaps, Basis Hedging (ICE/Nodal) \\
+     \textbf{Quantitative \& Programming:} Python, SQL, C\#, C++, AIMMS, Java \\
+     \textbf{Grid Systems Expertise:} SCED (Security Constrained Economic Dispatch), SCUC (Unit Commitment), FERC 841/831 Compliance
+    }}
+\end{itemize}
+
+%----------EXPERIENCE----------
+\section{Professional Experience}
+\begin{itemize}[leftmargin=0.15in, label={}]
+
+  \resumeSubheading
+      {REV RENEWABLES}{Bentonville, AR}
+      {Head of Trading, West}{08/2022 -- 01/2026}
+      \resumeItem{Managed commercial strategy and execution for a $\sim$750MW / $\sim$2.5GWh operating BESS portfolio in CAISO, generating $\sim$\$100M in annual revenue.}
+      \resumeItem{Executed hedging strategies to manage basis risk and lock in volatility premiums, utilizing exchange-traded products on ICE and Nodal for both short and long-term positions.}
+      \resumeItem{Originated and negotiated structured energy swaps to optimize the risk profile of both contracted and merchant assets.}
+      \resumeItem{Directed forward-planning strategies, analyzing nodal congestion and transmission constraints to guide capital deployment in high-value locations across the US.}
+
+  \resumeSubheading
+      {EDF RENEWABLES}{Bentonville, AR}
+      {Associate Director, Solar \& Storage Product Mgmt}{08/2020 -- 08/2022}
+      \resumeItem{Designed and managed algorithmic bidding strategies for energy storage assets, optimizing for ancillary services and energy arbitrage revenue.}
+      \resumeItem{Led market strategy for North American assets, ensuring commercial optimization within evolving ISO/RTO market rules.}
+      \resumeItem{Partnered with Power Origination and Capital Markets to value projects based on deep fundamental analysis of future grid conditions.}
+
+  \resumeSubheading
+      {WALMART}{Bentonville, AR}
+      {Senior Manager II, Renewable Energy Origination}{05/2019 -- 08/2020}
+      \resumeItem{Led procurement of over 1 TWh of renewable energy via VPPAs and other structured instruments.}
+      \resumeItem{Coded in-house optimization tools for behind-the-meter assets, maximizing ROI across a 4,000+ site portfolio by analyzing tariff structures and load profiles.}
+      \resumeItem{Collaborated with Texas Retail Energy to refine risk management systems for wholesale market exposure across ERCOT, PJM, and NYISO.}
+
+  \resumeSubheading
+      {GE GRID SOLUTIONS / ALSTOM GRID}{Redmond, WA}
+      {Senior Market Systems Project Engineer}{06/2014 -- 05/2019}
+      \resumeItem{\textbf{The ``Edge'':} Lead developer for the actual optimization software (SCED, SCUC) used by ISOs to clear the market. Deep knowledge of how constraints bind and set marginal prices.}
+      \resumeItem{Redesigned market management systems for SPP, MISO, PJM, and ISO-NE to comply with FERC orders, giving an insider view of market protocols.}
+      \resumeItem{Implemented grid optimization solutions that balance operational reliability with least-cost dispatch.}
+
+  \resumeSubheading
+      {SOUTHWEST POWER POOL (SPP)}{Little Rock, AR}
+      {Senior Engineer}{01/2008 -- 05/2014}
+      \resumeItem{Key player in the design and testing of the Integrated Marketplace (Day-Ahead and Real-Time), ensuring the clearing engine produced mathematically feasible and optimal pricing.}
+      \resumeItem{Developed applications to visualize market results and diagnose pricing anomalies—skills directly transferable to identifying trading opportunities.}
+
+\end{itemize}
+
+%----------EDUCATION----------
+\section{Education}
+\begin{itemize}[leftmargin=0.15in, label={}]
+  \resumeSubheading
+      {University of Arkansas}{Fayetteville, AR}
+      {Bachelor of Science in Electrical Engineering}{December 2007}
+\end{itemize}
+
+\end{document}
