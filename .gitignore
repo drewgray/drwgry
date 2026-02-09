@@ -1,0 +1,10 @@
+# LaTeX build artifacts
+*.aux
+*.log
+*.out
+
+# Role-targeted resumes (local only)
+resume/anthropic-dc-energy.*
+resume/google-els.*
+resume/meta-wholesale.*
+resume/walmart-energy.*
